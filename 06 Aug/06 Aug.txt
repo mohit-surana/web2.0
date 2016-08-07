@@ -1,0 +1,50 @@
+Asynchronous Use Cases:
+    Partial Refresh of Page
+    Partial Loading of Page
+    Validation (server)
+        eg. username clash
+
+Chat
+    Can be either P2P or via server (polling - bad)
+        Solution: Don't poll, server will push notifications (server push, reverse AJAX or COMET)
+
+Formats in which we will usually send async response:
+    Plain text - good, light weight - but can't use for structured data
+    JSON - very good for structure - auto maps to JS object
+        eg.
+        {
+            "empId" : 119,
+            "name"  : "Ramu"
+        }
+        obj.name
+    XML - Can attach semantics to the tag contents
+        eg.
+            <label>Name:Ramu</label> <!-- Would need splitting -->
+        But with XML, we can use
+            <employeeName>Ramu</employeeName>
+    HTML - too many characters, placeholders are already there hence we try to avoid
+
+JSON vs XML
+    Filters in JSON, need to be implemented by iterating over the elements and then creating HTML elements dynamically
+    But XSLT(eXtended Style ########) allows us to, given a set of rules, auto convert XML to HTML statements.
+
+Example:
+    Username validation in registration form
+        Have a hidden iframe which will make a request to the server.
+            Iframe has parent child relation with the page and hence we can do
+                parent.functionCall()
+        The server returns some script that gets executed.
+
+How to send POST request via iframe
+    Add name attribute to iframe
+    Add target attribute to the form
+
+When we hit the back button, we don't go to some other page
+    The iframe history is maintained :D
+
+Good:
+    GET & POST
+    History
+    Easy to code
+Bad:
+    No error handling

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hidden Frame AJAX</title>
+	<script>
+		function validateUsername()
+		{
+			err = document.getElementById("err");
+			err.style.display = "none";
+
+			user = document.getElementById("user");
+			if(user.value == '')
+			{
+				err.innerHTML = "Please enter a username";
+				err.style.display = "inline";
+				return;
+			}
+
+			ifr = document.getElementById("hf");
+			ifr.src = "chkUser.php?user=" + user.value;
+		}
+
+		function usernameResponse(username, used)
+		{
+			user.value = username;
+			err.style.display = "inline";
+			if(used)
+			{
+				err.innerHTML = "Username already in use!";
+			}
+			else
+			{
+				err.innerHTML = "Username is available!";
+			}
+		}
+	</script>
+	<style>
+		input
+		{
+			left:150px;
+			position:fixed;
+		}
+		span
+		{
+			left:320px;
+			position:fixed;
+		}
+	</style>
+</head>
+<body>
+	<h1>Student Details</h1>
+	<!-- target attribute will make request via the hidden frame -->
+	<form method="POST" target="hf" action="submit.php">
+		<p>Username:
+			<input type="text" id="user" name="user" onBlur="validateUsername()"/>
+			<span id="err" />
+		</p>
+		<p>Password: <input type="password" id="pwd1" name="pwd1" /></p>
+		<p>Confirm Password: <input type="password" id="pwd2" name="pwd2" /></p>
+		<p><input type="submit" value="Register" /></p>
+	</form>
+
+	<iframe id="hf" name="hf" style="display:none">
+	</iframe>
+</body>
+</html>

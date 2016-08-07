@@ -1,0 +1,22 @@
+Web 2.0 and Rich Internet Applications:
+---------------------------------------
+
+    To be installed:
+        Bootstrap 3 Js Library
+        CodeIgniter framework for PHP based Web Apps
+
+    Syllabus:
+        AJAX _ Techniques
+        AJAX Design Patterns
+        RSS feeds and JSON
+        AJAX- Performance and Security aspects
+        AJAX - COMET
+        Bootstrap Front-end Library
+        Web Services (REST based and SOAP based)
+        Frameworks overview, CodeIgniter in detail
+
+    Books:
+        Professional AJAX, 2nd Ed - Nicholas C Zakas et all
+        AJAX, The Complete Reference - Thomas A Powell
+        CodeIgniter 2 Cookbook - Rob Foster
+        Step by Step Bootstrap 3 - Riwanto Megosinarso
