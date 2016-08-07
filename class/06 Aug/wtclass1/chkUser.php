@@ -2,6 +2,7 @@
 	header("Content-type:text/html");
 	extract($_GET);
 	// extract($_POST);
+	
 	$used = 0;
 	$usernames = ["doodh", "doodhwala", "doodhwa!a", "mohit", "pavan"];
 	foreach ($usernames as $index => $username)

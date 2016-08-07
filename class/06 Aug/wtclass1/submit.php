@@ -1,3 +1,3 @@
 <?php
-	echo '<html><body><h3>Details saved!</h3><body></html>';
+	echo '<html><body><h3>Details have been saved!</h3><body></html>';
 ?>
