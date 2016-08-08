@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lab 1 - AJAX</title>
+	<script>
+		function init()
+		{
+			usn = document.getElementById("usn");
+			err = document.getElementById("err");
+			
+			// "name" is a special variable. Hence I have used studentName
+			studentName = document.getElementById("name");
+			dept = document.getElementById("dept");
+			gpa = document.getElementById("gpa");
+			electives = document.getElementById("electives");
+			hobbies = document.getElementById("hobbies");
+		}
+		function fetchDetails()
+		{
+			err.style.display = "none";
+			
+			if(usn.value == '')
+			{
+				err.innerHTML = "Please enter USN";
+				err.style.display = "inline";
+				return;
+			}
+	
+			ifr = document.getElementById("hf");
+			ifr.src = "http://localhost/fetchData.php?usn=" + usn.value;
+		}
+		
+		function setFields(data)
+		{
+			var res = data.split(";");
+			if(res.length == 4) 
+			{
+				usn.value = res[0];
+				studentName.value = res[1];
+				dept.value = res[2];
+				gpa.value = res[3];
+			}
+			else
+			{
+				err.innerHTML = res[0];
+				err.style.display = "inline";
+				studentName.value = '';
+				dept.value = '';
+				gpa.value = '';
+			}
+			electives.value = '';
+			hobbies.value = '';	
+		}
+	</script>
+	<style>
+		input
+		{
+			left:80px;
+			position:fixed;
+		}
+		span
+		{
+			left:250px;
+			position:fixed;
+		}
+	</style>
+</head>
+<body onload="init()">
+	<h1>Student Details</h1>
+	<form method="POST" action="submit.php">
+		<p>USN: 
+			<input type="text" id="usn" name="usn" onBlur="fetchDetails()"/>
+			<span id="err" />
+		</p>
+		<p>Name: <input type="text" id="name" name="name" readonly /></p>
+		<p>Dept: <input type="text" id="dept" name="dept" readonly /></p>
+		<p>GPA: <input type="text" id="gpa" name="gpa" readonly /></p>
+		<p>Electives: <input type="text" id="electives" name="electives" /></p>
+		<p>Hobbies: <input type="text" id="hobbies" name="hobbies" /></p>
+		<p><input type="submit" value="Save to Server" /></p>
+	</form>
+	
+	<iframe id="hf" style="display:none">
+	</iframe>
+</body>
+</html>

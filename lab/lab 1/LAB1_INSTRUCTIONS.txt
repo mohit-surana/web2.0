@@ -1,0 +1,71 @@
+INSTRUCTIONS FOR THE 1st LAB EXERCISE- HIDDEN IFRAMES AJAX
+----------------------------------------------------------
+This exercise involves making AJAX calls using hidden Iframes.
+The exercise demonstrates how you can make GET requests
+using the Iframes technique. The exercise also showcases the main
+advantage of the hidden frames technique where "history" is 
+maintained.
+
+1. Create an HTML form as shown in "hidden_frames_1.jpg".
+   The page has a form with 6 text fields as shown.
+   Only the "USN", "ELECTIVES" and the "HOBBIES" fields are editable.
+   The "NAME", "DEPT" and "GPA" fields are NOT editable. They are READ-ONLY.
+   
+2. The student can enter a valid USN in the USN field. As soon as the student
+   exits the "USN" field, an AJAX call is made to a server script using 
+   a hidden Iframe. The server returns the NAME, DEPT and GPA values
+   corresponding to the USN entered. If the USN entered is invalid, the 
+   server returns "INVALID USN". This string is then appended (next to the
+   USN field) on the screen. If proper values are returned for NAME, DEPT and 
+   GPA, the values are populated into the respective text fields. (Remember
+   these are read-only and hence only the server can populate these).
+   
+   The server must read this data from a text file, by matching the USN.
+   
+   This call will be a GET call. To get hold of an Iframe with id="ifr",
+   use the call 'iframe = document.getElementById("ifr");'. Now to make a call
+   from the Iframe to the server, change the "src" attribute of the iframe
+   object and point it to the server script. This will force a GET request.
+   
+   The server script must return a <script> which can run in the Iframe, 
+   which then populates the fields in the main window. 
+   
+   (Normally the server would just return text. But now we need to return a script
+   because only then can the iframe write back to the main frame.) 
+   As far as the iframe is concerned, it will make a "Synchronous" call to the server.
+   The server returns html which contains a <script> element in its <head> part. 
+   There will be only ONE line in this script code. That is:
+   
+   parent.setFields(datastr); // where datastr is the string returned by the server.
+   
+   Now, have a function in the MAIN window called "setFields(str)". Here split the 
+   "str" to extract all fields and populate the text fields.
+   
+   Thus, when the server responds to the Iframe with the html page, the script in it
+   fires automatically when it is rendered in the browser. This script will access
+   the setFields() function in the main window and update the fields.
+   
+   When everything works, hide the iframe by using "display:none" as CSS setting.
+  
+3. The student can now edit the remaining two fields (Electives and hobbies)
+
+4. The student can now click the "SAVE TO SERVER" button. This will be a submit button.
+   You can take some dummy action on this. (Trigger a PHP on the server which just 
+   returns a new page with "details saved" as the text. This will be a normal
+   synchronous call.)   
+   
+5. Finally demonstrate how "HISTORY" is maintained in this technique.
+   Clue: For this, each time the server has to return data (onblur of USN field),
+   send a script from the server, so that you update ALL 6 fields, even though 
+   the server sent back only 3. This will make sure that when the "BACK" button 
+   is clicked,the URL of the hidden iframe keeps changing to the previous value and 
+   all 6 fields will get updated automatically. 
+   
+   Tips:
+   
+   a. Use <iframe src="..."  id="...." ></iframe> to create the IFrame.
+      Remember that the Iframe is part of the body.
+   b. Use fopen("file","a") to open a file in append mode in the PHP script.
+   c. Send data from the PHP by using ";" as separator so that you can easily 
+      extract them on the client side.
+ 
