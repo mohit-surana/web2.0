@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Asynchronous calls using &lt;img&gt;</title>
+	<script>
+		function validateUsername()
+		{
+			msg = document.getElementById("msg");
+			msg.style.display = "none";
+
+			user = document.getElementById("user");
+			if(user.value == '')
+			{
+				msg.innerHTML = "Please enter a username";
+				msg.style.display = "inline";
+				return;
+			}
+
+			img = document.createElement("img");
+			img.addEventListener("load", success, false);
+			img.addEventListener("error", fail, false);
+			img.src = "chkUser.php?user=" + user.value;
+		}
+
+		function success(event)
+		{
+			msg.style.display = "inline";
+			if(img.width == 1) // Username available
+			{
+				msg.innerHTML = "Username is available!";
+			}
+			else // Username in use
+			{
+				msg.innerHTML = "Username already in use!";
+			}
+		}
+
+		function fail(event)
+		{
+			alert("Couldn't handle the request!");
+		}
+	</script>
+	<style>
+		input
+		{
+			left:150px;
+			position:fixed;
+		}
+		span
+		{
+			left:320px;
+			position:fixed;
+		}
+	</style>
+</head>
+<body>
+	<h1>Student Details</h1>
+	<!-- target attribute will make request via the hidden frame -->
+	<form method="POST" target="hf" action="submit.php">
+		<p>Username:
+			<input type="text" id="user" name="user" onBlur="validateUsername()"/>
+			<span id="msg" />
+		</p>
+		<p>Password: <input type="password" id="pwd1" name="pwd1" /></p>
+		<p>Confirm Password: <input type="password" id="pwd2" name="pwd2" /></p>
+		<p><input type="submit" value="Register" /></p>
+	</form>
+
+	<iframe id="hf" name="hf" style="display:none">
+	</iframe>
+</body>
+</html>
