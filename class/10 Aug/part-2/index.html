@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>XHR Review</title>
+	<script>
+		function init()
+		{
+			title = document.getElementById("title");
+			lead = document.getElementById("lead");
+			year = document.getElementById("year");
+			dir = document.getElementById("dir");
+		}
+		obj =
+		{
+			"xhr"				: new XMLHttpRequest(),
+			"movie"				: null,
+			"getDetails"		: function() {
+				// this - refers to obj
+				this.xhr.onreadystatechange = this.updateDetails;
+				this.xhr.open("GET", "fetchData.php?title=" + title.value, true);
+				this.xhr.send();
+			},
+			"updateDetails"		: function() {
+				// this - refers to XMLHttpRequest(xhr) - Why? ###
+				if(this.readyState == 4 && this.status == 200)
+				{
+					response = JSON.parse(this.responseText);
+					if(response.error)
+					{
+						alert(response.error);
+						document.getElementById("lead").value = "";
+						document.getElementById("year").value = "";
+						document.getElementById("dir").value = "";
+					}
+					else
+					{
+						document.getElementById("lead").value = response.lead;
+						document.getElementById("year").value = response.year;
+						document.getElementById("dir").value = response.dir;
+					}
+					// Since we are using only ONE xhr
+					this.abort();
+				}
+			}
+		};
+	</script>
+	<style>
+		input
+		{
+			left:80px;
+			position:fixed;
+		}
+		span
+		{
+			left:250px;
+			position:fixed;
+		}
+	</style>
+</head>
+<body onload="init()">
+	<h1>Movie Details</h1>
+	<form>
+		<p>Title: <input type="text" id="title" name="title" onBlur="obj.getDetails()" /></p>
+		<p>Lead: <input type="text" id="lead" name="lead" readonly /></p>
+		<p>Year: <input type="text" id="year" name="year" readonly /></p>
+		<p>Director: <input type="text" id="dir" name="dir" readonly /></p>
+	</form>
+</body>
+</html>
