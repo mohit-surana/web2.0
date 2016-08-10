@@ -1,0 +1,52 @@
+Part 1:
+------
+
+    Asynchronous calls examples:
+        XHR
+        Hidden frames
+        img loading (say we want to obtain a boolean result)
+            onload & onerror (via status code)
+            return differently sized images based on what happens
+                eg. 1x1 or 1x2
+                onblur, create an image dynamically and make request
+                point the src to a php script
+                body will have the image
+                    if we want to return a string, add it within the <head> tag - maybe as a cookie
+            * We can make cross domain calls! (unlike frames)
+            -ves:
+                ##########
+                Won't work if images are disabled
+                History can't be maintained
+
+    PHP GD configuration
+        Go to php_directory/ext/
+        Look for a file called php_gd2.dll
+        If present,
+            Go to php.ini
+            Look for the line and uncomment it
+                ;extension=php_gd2.dll -> extension=php_gd2.dll
+
+Part 2:
+------
+
+XHR -> XMLHttpRequest
+    readyState          -> 0 to 4
+        TODO: fill###
+        0 -
+        1 - Opened successfully
+        2 - Send
+        3 -
+        4 -
+    status              -> 200, 400, 500 etc
+    onreadystatechange  ->
+
+    responseText
+    responseXML
+    response        (binary data)
+
+Create the XHR object
+Register function (onreadystatechange)
+If POST,
+    setRequestHeader("application/x-www-form-urlencoded")
+open("METHOD", url, async(true/false))  (readyState=1)
+    Only allows asynchronous requests
