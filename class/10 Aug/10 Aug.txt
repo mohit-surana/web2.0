@@ -50,3 +50,9 @@ If POST,
     setRequestHeader("application/x-www-form-urlencoded")
 open("METHOD", url, async(true/false))  (readyState=1)
     Only allows asynchronous requests
+
+--
+
+The keyword "this" will refer to the caller
+    Refers to obj in getDetails function
+    Refers to obj.xhr in updateDetails function
