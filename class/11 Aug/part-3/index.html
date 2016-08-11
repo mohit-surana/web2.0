@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>XHR Review</title>
+	<script>
+		function init()
+		{
+			historyCount = 0;
+			window.onpopstate = restoreState;
+			title = document.getElementById("title");
+			lead = document.getElementById("lead");
+			year = document.getElementById("year");
+			dir = document.getElementById("dir");
+		}
+
+		function restoreState(event)
+		{
+			oldState = event.state;
+			title.value = oldState.title;
+			lead.value = oldState.lead;
+			year.value = oldState.year;
+			dir.value = oldState.dir;
+		}
+
+		obj =
+		{
+			"xhr"				: new XMLHttpRequest(),
+			"movie"				: null,
+			"getDetails"		: function() {
+				// this - refers to obj
+				this.movie = title.value;
+				this.xhr.onreadystatechange = this.updateDetails;
+				this.xhr.open("GET", "fetchData.php?title=" + title.value, true);
+				this.xhr.send();
+			},
+			"updateDetails"		: function() {
+				// this - refers to XMLHttpRequest(xhr) & not obj - Why?
+				// Because, we registered the handler on xhr - that is the object on which the function will be fired!
+				if(this.readyState == 4 && this.status == 200)
+				{
+					response = JSON.parse(this.responseText);
+					if(response.error)
+					{
+						alert(response.error);
+						lead.value = "";
+						year.value = "";
+						dir.value = "";
+					}
+					else
+					{
+						lead.value = response.lead;
+						year.value = response.year;
+						dir.value = response.dir;
+					}
+					// Save state
+					// window.history.pushState(objToBePushed, labelToEntry, url);
+					// Modify this URL
+					window.history.pushState(response, "XHR History", "http://localhost/wtclass2/p3/index.html?title=" + response.title);
+
+					// Since we are using only ONE xhr
+					this.abort();
+				}
+			}
+		};
+	</script>
+	<style>
+		input
+		{
+			left:80px;
+			position:fixed;
+		}
+		span
+		{
+			left:250px;
+			position:fixed;
+		}
+	</style>
+</head>
+<body onload="init()">
+	<h1>Movie Details</h1>
+	<form>
+		<p>Title: <input type="text" id="title" name="title" onBlur="obj.getDetails()" /></p>
+		<p>Lead: <input type="text" id="lead" name="lead" readonly /></p>
+		<p>Year: <input type="text" id="year" name="year" readonly /></p>
+		<p>Director: <input type="text" id="dir" name="dir" readonly /></p>
+	</form>
+</body>
+</html>

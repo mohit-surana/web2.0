@@ -1,0 +1,15 @@
+No history maintained if we use XHR! :(
+
+But Gmail maintains history by using different URLs
+How?
+    window
+        .document
+        .location
+        .history!
+
+When we do a back or a forward on the window, it fires an event popstate
+Register a handler, window.onpopstate = handler
+    In the handler, use event.state to get the saved object
+
+And save state using,
+    window.history.pushState(objToBePushed, labelToEntry, url);
