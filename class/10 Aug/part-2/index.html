@@ -16,12 +16,14 @@
 			"movie"				: null,
 			"getDetails"		: function() {
 				// this - refers to obj
+				this.movie = title.value;
 				this.xhr.onreadystatechange = this.updateDetails;
 				this.xhr.open("GET", "fetchData.php?title=" + title.value, true);
 				this.xhr.send();
 			},
 			"updateDetails"		: function() {
-				// this - refers to XMLHttpRequest(xhr) - Why? ###
+				// this - refers to XMLHttpRequest(xhr) & not obj - Why?
+				// Because, we registered the handler on xhr - that is the object on which the function will be fired!
 				if(this.readyState == 4 && this.status == 200)
 				{
 					response = JSON.parse(this.responseText);
