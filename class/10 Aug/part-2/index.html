@@ -30,15 +30,15 @@
 					if(response.error)
 					{
 						alert(response.error);
-						document.getElementById("lead").value = "";
-						document.getElementById("year").value = "";
-						document.getElementById("dir").value = "";
+						lead.value = "";
+						year.value = "";
+						dir.value = "";
 					}
 					else
 					{
-						document.getElementById("lead").value = response.lead;
-						document.getElementById("year").value = response.year;
-						document.getElementById("dir").value = response.dir;
+						lead.value = response.lead;
+						year.value = response.year;
+						dir.value = response.dir;
 					}
 					// Since we are using only ONE xhr
 					this.abort();
