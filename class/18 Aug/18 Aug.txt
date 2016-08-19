@@ -1,0 +1,62 @@
+Why use XHR to stream videos when we already have video tag?
+    We can control how much of the video should be loaded and load more based on some event
+
+Note:
+    The starting part of the video will have the meta data
+    Hence, first few seconds preview is fine
+        But from the middle, we won't be able to interpret the data
+
+If we stream by repeatedly doing sleep & echo,
+    readyState will be 3! (partial data loaded)
+
+--- x ---
+
+Patterns:
+
+Problem patterns and solution patterns
+
+
+x   Validation
+    Scrolling - horizontal and vertical
+        Lot of data has come. Should it have come or not?
+    Partial Loading
+x   Responsive Design
+        Abnormal behaviour on smaller screens
+    Less interaction
+        Automatic instead of manual data fetch
+    Loading time
+        Ideally < 100ms
+    Pop Ups
+        Must avoid
+    Ads
+        Should not avoid (cuz we want $$ :p )
+    Relevant Data & Not too much
+        Combine this with partial loading & loading time
+
+? Multistage download vs Infinite Scrolling
+
+Guidelines for Load order
+    Text early
+        If LOT of text, then look at the scroll pattern and make the browser send a signal to the server to send more data.
+        Predictive Fetch + Pagination
+    Videos - don't even load?
+    Ads should not come last :O
+        Somewhere in the middle
+
+Periodic Refresh
+    Bad if we do too many calls
+    Make it better using Exponential Backoff! B)
+        Retry after 1s, 2s, 4s, 8s etc
+
+Early send
+    Eg. search suggestions
+        When to fetch?
+            Min char
+            Pause
+            Submission Throttle
+
+Problem statement:
+    Have a huge text file.
+    Load the first page and show the user
+    If he scrolls more than 350px, load the next page
+    This goes on till the end of the file

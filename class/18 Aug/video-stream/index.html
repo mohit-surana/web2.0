@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Video using XHR</title>
+	<script>
+		function init()
+		{
+			obj.getVideo();
+		}
+
+		obj =
+		{
+			"xhr"				: new XMLHttpRequest(),
+			"getVideo"			: function() {
+				this.xhr.responseType = "blob";
+				this.xhr.onreadystatechange = this.showVideo;
+				this.xhr.open("PUT", "fetchVideo.php", true);
+				this.xhr.send();
+			},
+			"showVideo"			: function() {
+				if(this.readyState == 4 && this.status == 200)
+				{
+					// If you are expecting binary data
+					// We must use response
+					videosrc = this.response;
+
+					vid = document.createElement("video");
+					vid.controls = true;
+					vid.src = URL.createObjectURL(videosrc);
+					document.body.appendChild(vid);
+
+					this.abort();
+				}
+			}
+		};
+	</script>
+	<style>
+	</style>
+</head>
+<body onload="init()">
+	<h1>Video using XHR</h1>
+	<div></div>
+</body>
+</html>
