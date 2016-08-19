@@ -1,0 +1,84 @@
+XML vs JSON
+
+JSON:
+    moive:
+    {
+        key1: value1,
+        key2: value2
+    }
+XML:
+    <movie>
+        <key1>value1</key1>
+        <key2>value2</key2>
+    </movie>
+    Length of childNodes = 2 when newlines are discounted
+
+Types of nodes in XML:
+    Total = 9
+    Common = 4
+        element, text, attribute #####
+
+childNodes[]
+    Does not include attribute nodes
+
+// Using XML instead of JSON
+In updateDetails()
+    Since we are returning XML
+    this.responseXML    -> null
+    this.responseText   -> XML stuff as text
+
+Too much parsing required.
+
+Instead,
+    Use Content-type: text/XML
+        responseXML will have object.XMLDocument
+
+    root = this.responseXML;
+    root.childNodes.length is 1 (Why?)
+    root.childNodes[0].childNodes[2].firstChild.nodeValue is 2005
+
+    If we do,
+        root = this.responseXML.documentElement
+        This is the correct way and We can skip childNodes[0]
+
+    // getElementById can also be used
+    root.getElementsByTagName("lead").firstChild.nodeValue is SRK
+
+this.xhr.onerror = this.handleError;
+
+handleError()
+    alert()
+
+Security:
+    If not opened on localhost, XHR will give error because it is trying to make cross domain requests (localhost and file://)
+
+#################
+TODO 1 hour work
+#################
+
+CORS: Cross Origin Resource Sharing
+    A protected way of cross domain requests
+Access-Control-Allow-Origin
+Access-Control-Allow-Methods
+
+Simple Request
+    GET, POST (text/plain, application/x-www-form-urlencoded, ##multipart form data)
+Non-simple Request
+    POST(json, xml etc), PUT, DELETE
+
+For simple requests
+    Adds a field 'Origin' into the header - value = IP of the requesting machine
+    W3 Requirement
+        Browsers responsibility to block Cross Domain Origin calls
+
+Any request which has a customized header field set by code (setRequestHeader), that request automatically becomes non simple
+
+For non-simple
+    Preflighted request
+        First, a request with method 'OPTIONS' is made
+        In the header field, send Access-Control-Request-Method(s) for POST or others
+        Server should
+            Check the allowed origins & then check the allowed methods
+            Respond with two fields
+
+        If successful, then my next request will be a POST
