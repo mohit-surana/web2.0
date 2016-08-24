@@ -2,10 +2,16 @@ Patterns:
     Predictive Fetch
     Periodic Refresh
 
-Problem statement:
+Problem statement for part-1:
     Have a huge text file.
     Load the first page and show the user
     If he scrolls more than 350px, load the next page
     This goes on till the end of the file
 
 -- x --
+
+Problem statement for part-2:
+    Simulate Google Suggest
+    Use movies or players file
+    Populate entries of a select box
+    And demonstrate caching
