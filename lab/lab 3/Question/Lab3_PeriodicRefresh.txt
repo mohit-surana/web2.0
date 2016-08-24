@@ -1,0 +1,93 @@
+The next lab exercise...Lab3, is on Periodic Refresh
+
+The problem statement is as follows
+-----------------------------------------
+A Website provides for Engg seat Selection/Counseling. 
+The user can opt for colleges - PESIT and RVCE and courses - CSE or ECE. 
+The number of seats are limited and hence there is a <div> at the top 
+of the page which displays the total number of seats available for each 
+course/college. Since multiple users can access the  website and opt for 
+courses, this information must be frequently refreshed. 
+Demonstrate the functionality by employing the periodic refresh pattern.
+Open the same page from two browser windows and show how an update from one
+page affects the details on the other page as well.
+
+Also demonstrate the "Exponential Backoff" fallback pattern (when a refresh fails)
+
+Tips/Hints
+----------------------
+
+1. Choose a random number of seats for PESIT and RVCE and store it in 
+   a file on the server. The format could be 
+   50;40;60;50 ( you can assume the order to be PES-CS, PES-EC, RV-CS and RV-EC)
+   
+2. Provide two drop-downs on the front page. See attached image.
+   
+3. You can provide one text box for CET REG.NO (for sanity sake).
+
+4. Provide a button. When a selection is made in the drop-downs and
+   the button is clicked, an AJAX call is made to the server 
+   which then reduces the count (inside the file).This is the PHP script
+   that updates the server data. (That is, the "SAVE" is also asynchronous)
+   
+   To do this, you have to read the line from the file into an array.
+   Then depending on what the user chose, reduce the value of the
+   corresponding element in the array by 1. Then write the array back 
+   into the file as a line.
+   
+   To read the line from the file into the array, and to write back: 
+   First use fopen("serverfile.txt", "r"). Then,
+   
+   a. Use the fgets($file) call and read the line into a string.
+   b. Use the explode() call to split the string into an array
+      Ex: if the line is "56;45;34;45", then 
+	  $arr = explode(";",$line); will create an array with 4 elements.
+	  
+	  Close the file.
+	  
+   c. Now manipulate the relevant array element depending on what the 
+	  user chose. (For this, provide a name attribute for the <select>
+	  controls in the front page). 
+   d. Now create a final string by using the dot (.) operator and combine
+      the array elements into one string. (or use implode())
+   e. Open the file again, this time in write mode. Now use fputs(str)
+      to rewrite into the file. Remember that in write mode, all previous
+	  content is erased before the new one is written. This is what you 
+	  want as well.
+	  
+5. Meanwhile, have a <div> element at the top of the screen (wherever it is
+   convenient for you). Using XHR and the setTimeout() function,
+   perform repeated AJAX calls to the server to read the file and return
+   the content. You can make matters very simple by using the following call
+   while opening connection.
+
+   xhr.open("GET", "http://localhost/serverfile.txt", true);
+
+   This will directly read the file into xhr.responseText. 
+   (no need for php script to read the file)
+
+   Use the returned value, split it using the ";" character and then show
+   it properly in the <div>. Since you will repeatedly use the same
+   xhr object for making calls, don't forget to close the xhr
+   when the processing is over. (use xhr.abort() after processing the response)
+
+   Repeat this AJAX call every 10 seconds or so. 
+
+   So in effect, there are two AJAX calls possible simultaneously.
+   One because of the periodic refresh (read) and the other because
+   of the button click (write).   
+   
+   For the fallback, choose a timeout. If the server does not respond within the
+   timeout, you can implement the exponential backoff. For timing out the server code,
+   just use a sleep() call in the php script with a duration more than the allowed
+   client timeout. This means that to read the server data, you must invoke a PHP
+   script which opens the file and echoes the line back (as opposed to what is suggested
+   at the beginning of bullet 5, which reads the file DIRECTLY)
+   
+   Use xhr.timeout and xhr.ontimeout properties on the client side.
+   
+   Ex: xhr.timeout = 6000; xhr.ontimeout = fallbackfunction;
+   
+   This will automatically fire the fallbackfunction when 6 seconds have elapsed
+   and the server has not responded. In this function increase the timeout to 12s, 24s
+   etc. Once the server has successfully sent back data, reset the timeout to 10s.
