@@ -17,7 +17,7 @@
 		{
 			"xhr"				: new XMLHttpRequest(),
 			"getContent"		: function() {
-				if(document.documentElement.scrollHeight >= 1000 * lastChunk || document.body.scrollHeight >= 1000 * lastChunk)
+				if(document.documentElement.scrollTop >= 350 * lastChunk || document.body.scrollTop >= 350 * lastChunk)
 				{
 					obj.xhr.onreadystatechange = obj.updateContent;
 					obj.xhr.open("GET", "getChunk.php?chunk=" + lastChunk++, true);
