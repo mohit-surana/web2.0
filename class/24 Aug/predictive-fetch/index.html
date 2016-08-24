@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Predictive Fetch</title>
+	<script>
+		function init()
+		{
+			lastChunk = 0;
+			content = document.getElementById("content");
+
+			// Fetch inital content
+			obj.getContent();
+			window.addEventListener("scroll", obj.getContent, false);
+		}
+
+		obj =
+		{
+			"xhr"				: new XMLHttpRequest(),
+			"getContent"		: function() {
+				if(document.documentElement.scrollHeight >= 1000 * lastChunk || document.body.scrollHeight >= 1000 * lastChunk)
+				{
+					obj.xhr.onreadystatechange = obj.updateContent;
+					obj.xhr.open("GET", "getChunk.php?chunk=" + lastChunk++, true);
+					obj.xhr.send();
+					window.removeEventListener("scroll", obj.getContent, false);
+					// Disable to handle sequential fetching of data
+				}
+			},
+			"updateContent"		: function() {
+
+				if(this.readyState == 4 && this.status == 200)
+				{
+					window.addEventListener("scroll", obj.getContent, false);
+					response = this.responseText;
+					if(response == "EOF")
+					{
+						window.removeEventListener("scroll", obj.getContent, false);
+					}
+					else
+					{
+						content.innerHTML = content.innerHTML + response;
+					}
+				}
+				else if(this.readyState == 4)
+				{
+					// May have been an error
+					// After it is completed, again register the event handler
+					window.addEventListener("scroll", obj.getContent, false);
+				}
+
+			}
+		};
+	</script>
+	<style>
+
+	</style>
+</head>
+<body onload="init()">
+	<h2>Movies</h2>
+	<div id="content">
+	</div>
+</body>
+</html>
