@@ -3,7 +3,6 @@
 <head>
 	<title>Suggestions Sub-Throttle</title>
 	<link rel="stylesheet" type="text/css" href="suggest.css" />
-	<script type="text/javascript" src="suggest.js"> </script>
 </head>
 <body>
 	<h2>Find a Player ;)</h2>
@@ -11,17 +10,19 @@
 		<table>
 			<tr>
 				<td>Name: </td>
-				<td><input type="text" id="nameBox" size="30" /></td>
+				<td><input type="text" id="nameBox" size="20" /></td>
 			</tr>
 			<tr>
 				<td>Favourite Player: </td>
-				<td><input type="search" id="searchBox" size="30" onkeyup="obj.getPlayers()" /> </td>
+				<td><input type="search" id="searchBox" size="20" onkeyup="obj.getPlayers()" /> </td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><div id="searchResults">a</div></td>
+				<td><div id="searchResults"></div></td>
 			</tr>
 		</table>
 	</div>
+	<script type="text/javascript" src="suggest.js"> </script>
+	<!-- The search box and results were becoming undefined if the script was within the head -->
 </body>
 </html>

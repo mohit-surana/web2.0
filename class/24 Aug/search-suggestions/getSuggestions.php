@@ -1,10 +1,19 @@
 <?php
-	// Get the chunk number needed by the class_implements
 	extract($_GET);
 
-	// Open the file for reading
+	// Open a file and do a case-insensitive search
 	$file = fopen("Players.txt", "r");
-	$data = fread($file, 500);
-	echo implode("<br><br>", $data);
+	$players = array();
+
+	while($line = fgets($file))
+	{
+		// Use strncasecmp for case insensitive search with limited (n) characters
+		$line = trim($line);
+		if(strncasecmp($player, $line, strlen($player)) == 0)
+		{
+			$players[] = $line;
+		}
+	}
 	fclose($file);
+	echo json_encode($players);
 ?>
