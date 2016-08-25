@@ -2,6 +2,8 @@ Patterns:
     Predictive Fetch
     Periodic Refresh
 
+-- x --
+
 Problem statement for part-1:
     Have a huge text file.
     Load the first page and show the user
