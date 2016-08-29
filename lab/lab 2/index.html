@@ -5,84 +5,129 @@
 	<script>
 		function init()
 		{
-			historyCount = 0;
-			window.onpopstate = restoreState;
+			isbnSearch = document.getElementById("isbnSearch");
+
+			isbn = document.getElementById("isbn");
 			title = document.getElementById("title");
-			lead = document.getElementById("lead");
-			year = document.getElementById("year");
-			dir = document.getElementById("dir");
+			author = document.getElementById("author");
+			publisher = document.getElementById("publisher");
+			price = document.getElementById("price");
+
+			bookDetails = document.getElementById("bookDetails");
+			bookDetails.style.display = "none";
+
+			setTimeout(loadSearch, 3000);
+			setTimeout(loadPenguins, 6000);
+
+			links = document.getElementById("links");
+			setTimeout(loadLinks, 9000);
 		}
 
-		function restoreState(event)
+		function loadPenguins()
 		{
-			oldState = event.state;
-			title.value = oldState.title;
-			lead.value = oldState.lead;
-			year.value = oldState.year;
-			dir.value = oldState.dir;
+			document.getElementById("penguins").src = "images/penguins.bmp";
+		}
+
+		function loadLinks()
+		{
+			linksXhr = new XMLHttpRequest();
+			linksXhr.onreadystatechange = showLinks;
+			linksXhr.open("GET", "links.txt", true);
+			linksXhr.send();
+		}
+
+		function showLinks()
+		{
+			if(linksXhr.readyState == 4 && linksXhr.status == 200)
+			{
+				linksHeading = document.createElement("h2");
+				linksHeading.innerHTML = "Links to Department Libraries";
+				links.appendChild(linksHeading);
+
+				response = linksXhr.responseText;
+				var linkData = response.split("\n");
+				for(var i = 0; i<linkData.length; ++i)
+				{
+					link = document.createElement("a");
+					link.innerHTML = linkData[i].split(";")[0];
+					link.href = linkData[i].split(";")[1];
+					link.style.display = "block";
+					links.appendChild(link);
+				}
+			}
 		}
 
 		obj =
 		{
 			"xhr"				: new XMLHttpRequest(),
-			"movie"				: null,
 			"getDetails"		: function() {
-				// this - refers to obj
-				this.movie = title.value;
+				bookDetails.style.display = "none";
 				this.xhr.onreadystatechange = this.updateDetails;
-				this.xhr.open("GET", "fetchData.php?title=" + title.value, true);
+				this.xhr.open("GET", "fetchData.php?isbn=" + isbnSearch.value, true);
 				this.xhr.send();
 			},
 			"updateDetails"		: function() {
-				// this - refers to XMLHttpRequest(xhr) & not obj - Why?
-				// Because, we registered the handler on xhr - that is the object on which the function will be fired!
 				if(this.readyState == 4 && this.status == 200)
 				{
 					response = JSON.parse(this.responseText);
 					if(response.error)
 					{
 						alert(response.error);
-						lead.value = "";
-						year.value = "";
-						dir.value = "";
 					}
 					else
 					{
-						lead.value = response.lead;
-						year.value = response.year;
-						dir.value = response.dir;
+						bookDetails.style.display = "inline";
+						isbn.innerHTML = response.isbn;
+						title.innerHTML = response.title;
+						author.innerHTML = response.author;
+						publisher.innerHTML = response.publisher;
+						price.innerHTML = response.price;
 					}
-					// Save state
-					// window.history.pushState(objToBePushed, labelToEntry, url);
-					// Modify this URL
-					window.history.pushState(response, "XHR History", "http://localhost/wtclass2/p3/index.html?title=" + response.title);
-
-					// Since we are using only ONE xhr
 					this.abort();
 				}
 			}
 		};
 	</script>
 	<style>
-		input
+		th, td
 		{
-			left:80px;
-			position:fixed;
-		}
-		span
-		{
-			left:250px;
-			position:fixed;
+			border: 1px solid black;
+			border-collapse: collapse;
 		}
 	</style>
 </head>
 <body onload="init()">
-	<h1>Movie Details</h1>
-	<form>
-		<p>Title: <input type="text" id="title" name="title" onBlur="obj.getDetails()" /></p>
-		<p>Lead: <input type="text" id="lead" name="lead" readonly /></p>
-		<p>Year: <input type="text" id="year" name="year" readonly /></p>
-		<p>Director: <input type="text" id="dir" name="dir" readonly /></p>
-	</form>
+	<h2>Welcome to LMS <img id="penguins" src="images/loader.gif" /></h2>
+	<p>Welcome to the PESIT Library Management System This page helps you to enhance your knowledge in all fields of engineering.</p>
+	<p>Books available are in the fields of Mechanical, Electronics, Computer and Information Science Engineering.</p>
+	<p>If you want to start quickly, there is a search field in which you can enter an ISBN number. You can then search for the book. The results will contain details about the author, the publisher, the price and the title of the book.</p>
+	<p>Meanwhile, you can also go to the individual department sites by clicking on the hyperlinks provided at the bottom of this page.</p>
+	<p>Thank you and have a wonderful time.</p>
+	<div>
+		<img id="searchLoader" src="images/loader.gif" />
+		<p>ISBN: <input type="text" id="isbnSearch" onBlur="obj.getDetails()" /></p>
+		<p><input type="button" onclick="obj.getDetails()" value="Search"/></p>
+	</div>
+	<div>
+		<table id="bookDetails">
+			<tr>
+				<th>ISBN</th>
+				<th>Title</th>
+				<th>Author</th>
+				<th>Publisher</th>
+				<th>Price</th>
+			</tr>
+			<tr>
+				<td id="isbn"></td>
+				<td id="title"></td>
+				<td id="author"></td>
+				<td id="publisher"></td>
+				<td id="price"></td>
+			</tr>
+		</table>
+	</div>
+	<div id="links">
+		<img src="images/loader.gif" />
+	</div>
 </body>
 </html>
