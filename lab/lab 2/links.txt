@@ -1,4 +1,0 @@
-Biotechnology;http://localhost/wtlab2/pages/bt.html
-Computer Science;http://localhost/wtlab2/pages/cs.html
-Electrical;http://localhost/wtlab2/pages/ec.html
-Information Science;http://localhost/wtlab2/pages/is.html
