@@ -23,9 +23,18 @@
 			setTimeout(loadLinks, 9000);
 		}
 
+		function loadSearch() // Hacky way to do it - better to send some html from the server
+		{
+			document.getElementById("searchLoader").style.display = "none";
+			document.getElementById("searchContent").style.display = "block";
+		}
+
 		function loadPenguins()
 		{
-			document.getElementById("penguins").src = "images/penguins.bmp";
+			var pingu = document.getElementById("penguins");
+			pingu.src = "images/penguins.bmp";
+			pingu.style.height = "5%";
+			pingu.style.width = "5%";
 		}
 
 		function loadLinks()
@@ -55,6 +64,7 @@
 					links.appendChild(link);
 				}
 			}
+			document.getElementById("linksLoader").style.display = "none";
 		}
 
 		obj =
@@ -105,8 +115,10 @@
 	<p>Thank you and have a wonderful time.</p>
 	<div>
 		<img id="searchLoader" src="images/loader.gif" />
-		<p>ISBN: <input type="text" id="isbnSearch" onBlur="obj.getDetails()" /></p>
-		<p><input type="button" onclick="obj.getDetails()" value="Search"/></p>
+		<div id="searchContent" style="display: none">
+			<p>ISBN: <input type="text" id="isbnSearch" onBlur="obj.getDetails()" /></p>
+			<p><input type="button" onclick="obj.getDetails()" value="Search"/></p>
+		</div>
 	</div>
 	<div>
 		<table id="bookDetails">
@@ -127,7 +139,7 @@
 		</table>
 	</div>
 	<div id="links">
-		<img src="images/loader.gif" />
+		<img id="linksLoader" src="images/loader.gif" />
 	</div>
 </body>
 </html>
