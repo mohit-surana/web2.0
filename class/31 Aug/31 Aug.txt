@@ -1,0 +1,54 @@
+Unit - 2:
+--------
+
+Eg. BBC
+    If we want to retrieve information from it, we will get it in the form of HTML.
+    But there will be lot of unnecessary styling information
+    For their popularity, they would like to send info to others in a convenient format
+    XML suits this well as the tags can be handled easily without much work (had we used JSON)
+        Plus styling is also easy (XSL)
+    So they can provide a feed - in a single standard format
+
+At around this time, Microsoft introduced CDF (Channel Description Framework)
+Over time, the format became too tedious and it was prone to mistakes and readers started failing
+
+Netscape - started
+    RSS - RDF Site Summary
+    Resource Description Framework
+    Dropped it
+
+Harvard took over
+    Really Simple Syndication
+
+How does the person visiting the HTML page know that there is an XML version as well?
+    <link rel="alternate" href="">
+    AND
+    RSS version image - .╗
+
+Browser can bookmark it
+    And usually has a mechanism to auto fetch latest content
+
+RSS
+    Root node is <rss>
+    <rss>
+        <channel>
+            <ttl>X</ttl> <!-- Minutes -->
+            <item> for each headline
+                <title>
+                <link>
+                <description>
+
+Atom(supported by Google) or #### feed
+
+Problem Statement:
+    Scrolling news ticker
+    With hyperlinks
+    If we move mouse over it, stop scrolling
+    Use AJAX
+
+-----
+
+All functions have a property called prototype that typically point to some object
+
+obj = new foo();
+obj inherits from the object pointed to by foo.prototype

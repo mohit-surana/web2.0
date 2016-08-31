@@ -1,0 +1,36 @@
+h2
+{
+	text-align: center;
+}
+
+div
+{
+	font-size: 20px;
+}
+
+#outer
+{
+	border-top: solid 2px black;
+	border-bottom: solid 2px black;
+	border-left: transparent;
+	border-right: transparent;
+
+	background-color: darkblue;
+	color: white;
+}
+
+#inner
+{
+	background-color: white;
+	color: black;
+	height: 24px;
+}
+
+#ticker
+{
+	position: absolute;
+	left: 100px;
+	background-color: white;
+	color: black;
+	white-space: nowrap;
+}
