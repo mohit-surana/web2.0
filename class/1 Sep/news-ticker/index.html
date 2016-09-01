@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Scrolling News Ticker</title>
+	<link rel="stylesheet" type="text/css" href="news-ticker.css" />
+	<script type="text/javascript">
+		function init()
+		{
+			obj = new NewsFeed();
+			obj.scroll();
+		}
+	</script>
+</head>
+<body onload="init()">
+	<h2>News from around the world</h2>
+	<div id="outer">
+		<div id="inner">
+			<div id="ticker">Your news goes here!</div>
+		</div>
+		<div>
+			Stock Prices (coming soon)
+		</div>
+	</div>
+	<script type="text/javascript" src="news-ticker.js"> </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+RSS
+<rss>
+    <item>
+
+Atom
+<feed>
+    <entry>
+
+Base Feed
+    RssFeed
+    AtomFeed
+
+Base Item
+    RssItem
+    AtomItem
+
+XParser is an Atom and RSS parser
+
+xparser = ####
+
+xparser.getFeed(sUrl, fpCallBack[, oCallBackScope]);
+    URL of the remote feed to be parsed
+    Once it is loaded, the call back function is called
+    Entire XML is JSONified and passed as param to fpCallBack
+
+To call parent's function - we use ParentClass.apply() or ParentClass.call()
+
+Cool for loop B-)
+for(var i = 0, obj; obj = array[i]; ++i) {
+    ;
+}
+
+----------------------------
+
+Quiz snippets:
+
+<img> disadvantages
+    Can't send voluminous data
+    Only GET requests are possible
+
+Best AJAX technique to maintain state info for all requests
+    AJAX (+ popstate, pushstate)
+
+BLOB
+    response
+
+Cross domain requests not normally allowed for
+    XHR and Hidden Frame
+
+POST using hidden frame
+    Put target attribute on form
+
+readyState 4 values, partial = 3
+
+XML comes as
+    string in response
+    dom in responseXML
+
+AJAX POST
+    Either set content type as
+##    FormData()
+        Will be done in next class
+        Constructor to create forms on the fly
+
+If cross domain AJAX request have to be made, the solutions are
+    Use an intermediate server (proxy)
+    Access control headers
+    Images
+
+To send image to browser using PHP:
+    image create
+    ######
+
+Script based and image based AJAX are similar
+    False
+        Must add script to the DOM
+
+
+For uploading files
+    input type = file
+    content type = multipart form data
+
+PHP files in
+    $_FILES
+    tmp directory
