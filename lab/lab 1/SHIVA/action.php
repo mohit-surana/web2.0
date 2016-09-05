@@ -11,7 +11,7 @@
 	
 		if($usn == $temp[0])
 		{
-			$retval = "$temp[1],$temp[2]," . trim($temp[3]);
+			$retval = "$temp[1], $temp[2], " . trim($temp[3]);
 			echo "<html><script>parent.setFields('$retval');</script></html>";
 			$found = 1;
 		}
