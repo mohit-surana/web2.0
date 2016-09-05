@@ -1,0 +1,40 @@
+The next exercise is on Bootstrap and AJAX with HTML5:
+
+Problem Statement:
+
+Build a webpage that appears as shown in the attached pic.
+The page is a "Tom Hanks" page detailing his movies.
+
+Details are as follows:
+
+1. Favourite movies are listed (drop down menu - static). 
+  (you should be able to click and get details on the Right-hand-side. This will
+   be AJAX functionality)
+2. A search form is available where you can search for a movie (title)
+3. There is a Table - Listing some of Tom Hanks' movies and their directors 
+   (this part is static but well-styled)
+4. Images of the movies are shown under the table. (again static) 
+5. One of Tom Hanks' quotes is displayed (Again static, see attached pic)
+
+6. In the "Movie Summary" page, the summary of the movie entered in the search box
+   are displayed. This part is AJAX and you need to visit the server for this.
+
+REQUIREMENTS:
+   
+Demonstrate the use of the following Bootstrap Classes:
+
+1. Grid classes. Split the screen into two columns (25% and 75%)
+2. Fixed/fluid layouts.
+3. The Table related classes
+4. The Image related classes
+5. Form related classes (for forms)
+6. The Alert classes
+7. Provide a hide/show Summary functionality (toggle) where the user can hide/show
+   the sumamry. You can use Jquery for this.
+8. The Button related classes
+9. The "col-*", "well" related classes with <div>s
+
+
+NOTE: YOU CAN TAKE ALL HELP FROM INTERNET. FEEL FREE TO TRY DIFFERENT THINGS
+
+
