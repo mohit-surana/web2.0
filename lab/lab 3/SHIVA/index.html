@@ -1,0 +1,97 @@
+<html>
+	<head> <title> Lab 3 - Periodic Refresh </title> 
+	
+		<script>
+		function init()
+		{
+			header = document.getElementById("header");
+			coll = document.getElementById("college");
+			dept = document.getElementById("dept");
+			
+			xhr_refresh = new XMLHttpRequest();
+			xhr_update = new XMLHttpRequest();
+			
+			periodicRefresh();
+			setInterval(periodicRefresh, 10 * 1000);
+		}
+		
+		/* function to periodically refresh seat count */
+		function periodicRefresh()
+		{
+			xhr_refresh.onreadystatechange = function()
+			{
+				if (this.readyState == 4 && this.status == 200) 
+				{
+					var seats = this.responseText;
+					var colleges = seats.split(";");
+					header.innerHTML = "PESIT: CSE - "+colleges[0]+", ECE - "+colleges[1]+" | RVCE: CSE - "+colleges[2]+", ECE - "+colleges[3];
+					this.abort();
+				}
+			}
+			xhr_refresh.open("GET", "seats.txt", true);
+			xhr_refresh.send();
+		}
+		
+		/* function to send AJAX request to update server with seat selection */
+		function updateSeats()
+		{
+			//console.log(coll.value);
+			xhr_update.onreadystatechange = function()
+			{
+				if (this.readyState == 4 && this.status == 200) 
+				{	
+					console.log(this.responseText);
+					this.abort();
+					periodicRefresh();
+				}
+			}
+			xhr_update.open("GET", "seatupdate.php?coll=" + coll.value + "&dept=" + dept.value, true);
+			xhr_update.send();
+		}
+		
+
+		
+		</script>
+	</head>	
+	
+	<body onload="init()"><center>
+		<h3 style="color:green;">Availability:
+		<div id="header" style="color:green;"> </div></h3>
+		
+		<hr/>
+		
+		<h2>CET Seat Selection</h2>
+		<table border="0" cellspacing="10" cellpadding="10">
+			<tr>
+				<th>Hall Ticket #</th>
+				<td><input type="text" name="cet" id="cet"/></td>
+			</tr>
+			
+			<tr>
+				<th>College</th>
+				<td>
+					<select id="college" style="width:200px;">
+						<option value="PESIT">PESIT</option>
+						<option value="RVCE">RVCE</option>
+					</select>
+				</td>
+			</tr>
+		
+			<tr>
+				<th>Department</th>
+				<td>
+					<select id="dept" style="width:200px;">
+						<option value="CSE">Computer Science</option>
+						<option value="ECE">Electronics and Communication</option>
+					</select>
+				</td>
+			</tr>
+
+			<tr>
+				<td colspan="2" style="text-align:center;">
+					<button onclick="updateSeats()">Submit</button>
+				</td>
+			</tr>
+	
+	</center></body>
+</html>
