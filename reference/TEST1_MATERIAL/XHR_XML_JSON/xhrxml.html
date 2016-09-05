@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XHR AJAX</title>
+<script type="text/javascript">
+obj = 
+{
+	xhr: new XMLHttpRequest(),
+
+	getMsg: function()
+	{
+		this.xhr.onreadystatechange = this.showMsg;
+			
+		this.xhr.open("GET", "http://localhost/getmsg.php", true);
+	
+		this.xhr.send();
+	},
+	
+	
+	showMsg: function()
+	{
+		if(obj.xhr.readyState == 4 && obj.xhr.status== 200)
+		{
+			//alert(this.responseXML.documentElement.childNodes[1].childNodes[1].nodeName);
+			/*root = this.responseXML.documentElement;
+			
+			node = root.getElementsByTagName("name")[1];
+			alert(node.firstChild.nodeValue);
+			
+			obj.xhr.abort();*/
+			
+			myobj = JSON.parse(this.responseText);
+			
+			alert(myobj[0].id);
+		}
+	}
+}
+</script>
+</head>
+<body>
+<input type="button" value="GET MSG" onclick="obj.getMsg()"/>
+</body>
+</html>

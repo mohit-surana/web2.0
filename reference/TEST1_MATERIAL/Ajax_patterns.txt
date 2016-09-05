@@ -1,0 +1,101 @@
+Probs:
+-----------  
+ The Start and stop method of fetching data is very irritating.
+   User has to perform an action before a fetch happens. This is because, 
+   the fetch is a response to user action. Also, a small wait is required 
+   before each fetch is displayed.
+   
+   Ultimate goal is to make responses near real-time (0 delay).
+   
+Solution:
+
+Automatically fetch data, without user having to explicitly request for it.
+Mere navigating through a page should be enough for triggering requests.
+
+Popular patterns:
+------------------
+a. Predictive Fetch
+b. On-demand Javascript (even stylesheets)
+c. Periodic Refresh
+d. Fallback patterns.
+e. Multi-stage download
+f. Submission Throttling
+
+Predictive Fetch
+--------------------------
+Key triggers for a pre-fetch:
+
+1. User action.
+2. User history
+3. Other users' action.
+
+Sometimes client can trigger a server action without the server actually responding.
+
+(The client triggers the server. The Server can connect to database, 
+ fetch data and then cache the data.
+ It then waits for another request from client to actually send back data. 
+ Processing time can be drastically reduced by this approach. The other advantage
+ is that if the browser does not need this data, then the server is not requested
+ and this can avoid unnecessary wastage of bandwidth)
+
+Real world examples: Google Maps, Most Newspaper sites 
+
+Important factors to consider:
+------------------------------------
+1. How much data to pre-fetch?
+2. Which data to pre-fetch? (what happens if the prediction is wrong?)
+3. Side-effects - Inconsistent behaviors. For instance, the user may find 
+   that some links are really fast (because they were pre-fetched) whereas
+   other links are really slow.
+4. Decision is governed by: Utility to the user, likelihood of action, overhead
+   if the fetch is wasted. 	 	
+
+   
+Submission Throttling:
+-----------------------------
+1. Early vs late send. 
+2. Practical examples: Google suggest and any form submission.
+3. Throttle period - based on events or time? If time, what is a good 
+   throttle period? The "Early send" could use event as the trigger whereas the
+   "late send" could use time as the trigger.
+
+ 
+Periodic Refresh
+-----------------------------
+1. Choosing a good period is crucial. 
+   If the period is very small (say 2s), then we make a call to the server every 2 seconds.
+   This may queue up a lot of requests if the latency is high. On the other hand if
+   the period is big (say 30 seconds), then we may lose intermediate updates. For
+   example - a stock price updation app.
+   
+2. Each fetch must return "small" data. (because there will be numerous requests)
+
+3. Fallback pattern for this....? (Exponential backoff)
+   Backoff in powers of 2. For instance, if the period chosen is 10 seconds
+   and a refresh fails, we can try again after 20s. If that too fails, try after
+   40 seconds and so on...
+   
+4. Automatic cancel of "refresh" if it is detected that the user is not 
+   doing anything with the page. This is a very good idea as well. Then when the user
+   starts interacting with the page, the refresh can resume.
+   
+   Question: How to find out if the user is interacting with the page???
+   
+
+Multi-stage download
+----------------------------------
+1. In force when lots of data needs to be downloaded. Usually the "FIRST" load.
+2. Order of the download. This is crucial. Otherwise your site may die soon.
+   The most relevant and light data must arrive first so that the user can get started.
+   The heaviest ones should probably arrive later. The advantage of this is that,
+   if the user navigates away from the page fairly quickly, then the heavy downloads
+   are avoided.
+   
+3. Have indicators to indicate to the user that more data is coming.
+   (Progress bars or animated GIFs).
+   Is it a good idea to let the user know WHAT DATA is being downloaded??
+   
+4. Have place holders which can accept returned data readily.
+   <div> elements or tables etc
+   
+5. When will the Ads come??

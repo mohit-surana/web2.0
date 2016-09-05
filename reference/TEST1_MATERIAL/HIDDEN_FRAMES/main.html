@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HIDDEN FRAMES AJAX</title>
+<script type="text/javascript">
+function chkUser()
+{
+	//Get the username field. If its empty, nothing to do
+	usr = document.getElementById("usr");
+	
+	if(usr.value == "")
+	{
+		alert("Nothing to check");
+		return;
+	}
+	
+	//else, we are in business
+	helper = document.getElementById("helper");
+	
+	helper.src = "http://localhost/chkuser.php?uid="  + usr.value;
+	
+	//To do a POST request VIA the iframe, set a "name" attribute on the iframe.
+	// Then in the main window, have a <form> element and set the "target" attribute
+	// to the name of the iframe. The markup below DOES NOT have a <form> since 
+	// we are doing a GET.
+}
+
+function setStat(status)
+{
+	
+	sp = document.getElementById("pwd");
+	sp.value = status.split(";")[1];
+	sp.style.fontStyle = "italic";
+	sp.style.color = "red";
+	
+	usr.value = status.split(";")[0];
+	
+}
+</script>
+</head>
+<body>
+<label>USERNAME:<input type="text" id="usr" onblur="chkUser()"/></label><span id="stat"></span><p>
+<label>PASSWORD:<input type="text" id="pwd"/></label><p>
+<input type="button" value="REGISTER"/>
+<iframe id="helper" name="helper" width="100" height="100" style="display:none;"/>
+</body>
+</html>

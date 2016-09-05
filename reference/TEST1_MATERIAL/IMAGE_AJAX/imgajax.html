@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>IMAGE BASED AJAX</title>
+<script type="text/javascript">
+function chkUser()
+{
+	//Get the username field. If its empty, nothing to do
+	usr = document.getElementById("usr");
+	sp = document.getElementById("stat");
+	
+	if(usr.value == "")
+	{
+		alert("Nothing to check");
+		return;
+	}
+	
+	//Create an image dynamically
+	img = document.createElement("img");
+	
+	img.onload = success;
+	img.onerror = failure;
+	
+	img.src = "http://localhost/imgstat.php?uid=" + usr.value;
+}
+
+function success()
+{
+	if(img.width == 1)
+	{
+		sp.innerHTML = "user already taken";
+	}
+	else
+	{
+		sp.innerHTML = "user available";
+	}
+
+}
+
+function failure()
+{
+}
+
+</script>
+</head>
+<body>
+<label>USERNAME:<input type="text" id="usr" onblur="chkUser()"/></label><span id="stat"></span><p>
+<label>PASSWORD:<input type="text" id="pwd"/></label><p>
+<input type="button" value="REGISTER"/>
+</body>
+</html>

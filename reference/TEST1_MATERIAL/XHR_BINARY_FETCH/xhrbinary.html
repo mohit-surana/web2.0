@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XHR AJAX</title>
+<script type="text/javascript">
+obj = 
+{
+	xhr: new XMLHttpRequest(),
+
+	getVideo: function()
+	{
+		this.xhr.onreadystatechange = this.showVideo;
+		this.xhr.responseType = "blob";
+		
+		this.xhr.open("GET", "http://localhost/getbinary.php", true);
+	
+		this.xhr.send();
+	},
+	
+	
+	showVideo: function()
+	{
+		if(obj.xhr.readyState == 4 && obj.xhr.status== 200)
+		{
+			data = obj.xhr.response;
+			
+			vid = document.createElement("video");
+			vid.controls = true;
+			
+			//To create a dummy URL on the browser side.
+			vid.src = URL.createObjectURL(data);
+			
+			//Add the video to the body
+			document.body.appendChild(vid);
+		}
+	}
+}
+</script>
+</head>
+<body>
+<input type="button" value="GET MSG" onclick="obj.getVideo()"/>
+</body>
+</html>

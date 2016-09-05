@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XHR AJAX</title>
+<script type="text/javascript">
+nextcount = 0;
+window.onpopstate = restoreState;
+function restoreState(event)
+{
+	moviedetails = event.state;
+
+	document.getElementById("lead").value = moviedetails.lead;
+	document.getElementById("year").value = moviedetails.year;
+	document.getElementById("dir").value = moviedetails.dir;
+	document.getElementById("title").value = moviedetails.movie;
+
+}
+
+obj = 
+{
+	xhr: new XMLHttpRequest(),
+
+	getMovieDetails: function()
+	{
+		//Get the movie title
+		movie = document.getElementById("title");
+		
+		if(movie.value == "")
+		{
+			return;
+		}
+		
+		this.xhr.onreadystatechange = this.showMsg;
+		this.xhr.open("GET", "http://localhost/getmoviedetails.php?movie="+ movie.value, true);
+	
+		this.xhr.send();
+	},
+	
+	
+	showMsg: function()
+	{
+		if(obj.xhr.readyState == 4 && obj.xhr.status== 200)
+		{
+			moviedetails = JSON.parse(this.responseText);
+			
+			document.getElementById("lead").value = moviedetails.lead;
+			document.getElementById("year").value = moviedetails.year;
+			document.getElementById("dir").value = moviedetails.dir;
+			
+			//Save state so that history can be maintained
+			stateobj = new Object();
+			stateobj.movie = movie.value;
+			stateobj.lead = moviedetails.lead;
+			stateobj.year = moviedetails.year;
+			stateobj.dir = moviedetails.dir;
+			
+			//We are ready to save now
+			window.history.pushState(stateobj, "XHR HISTORY", "http://localhost/xhrhistory.html/next" + nextcount++);
+			
+			this.abort();
+		}
+	}
+}
+</script>
+</head>
+<body>
+<label>MOVIE TITLE:<input type="text" id="title" onblur="obj.getMovieDetails()"/></label><p>
+<label>LEAD ACTOR:<input type="text" id="lead" readonly /></label><p>
+<label>YEAR:<input type="text" id="year" readonly /></label><p>
+<label>DIRECTOR:<input type="text" id="dir" readonly /></label><p>
+</body>
+</html>

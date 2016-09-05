@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>XHR AJAX</title>
+<script type="text/javascript">
+obj = 
+{
+	xhr: new XMLHttpRequest(),
+
+	getCaption: function()
+	{
+		this.xhr.onreadystatechange = this.showCaption;
+		this.xhr.onerror = this.failure;
+		
+		//Using PUT just to see if Cross domain requests work or not.
+		// To test cross domain requests, launch THIS file by double-clicking.
+		// It will open as "File:///...". Now below, we are making a 
+		// call to "http://localhost.." and so it is treated as a cross-domain
+		// request
+		this.xhr.open("PUT", "http://localhost/getcaption.php", true);
+	
+		this.xhr.send();
+	
+	},
+	failure: function()
+	{
+		//CORS stands for Cross-Origin-Resource-Sharing
+		alert("CORS problem");
+	},
+	
+	
+	showCaption: function()
+	{
+		if(obj.xhr.readyState == 4 && obj.xhr.status== 200)
+		{
+			document.getElementById("cap").innerHTML = obj.xhr.responseText;
+			
+			obj.xhr.abort();
+		}
+	},
+	
+	//Function to upload the CV
+	uploadCV: function()
+	{
+		//Read the file that needs to be uploaded
+		file = document.getElementById("cv");
+		
+		mycv = file.files[0];
+		
+		//Create a form
+		// The FormData() takes care of the Content-type. You don't have to
+		// do anything. This is a feature of XHR-LEVEL2 specs
+		form = new FormData();
+		
+		form.append("random", "hi");
+		form.append("mycv", mycv);
+		
+		this.xhr.onreadystatechange = this.showStatus;
+		
+		this.xhr.open("POST", "http://localhost/savecv.php", true);
+	
+		this.xhr.send(form);
+
+
+	},
+	
+	showStatus: function()
+	{
+		if(obj.xhr.readyState == 4 && obj.xhr.status == 200)
+		{
+			alert("File uploaded: " + obj.xhr.responseText);
+			obj.xhr.abort();
+		}
+	}
+}
+</script>
+</head>
+<body>
+<img src="koala.jpg" width="100" height="100" onclick="obj.getCaption()"/>
+<div id="cap"></div>
+<label>MY CV:<input type="file" id="cv" /></label><p>
+<input type="button" value="UPLOAD" onclick="obj.uploadCV()"/>
+</body>
+</html>
