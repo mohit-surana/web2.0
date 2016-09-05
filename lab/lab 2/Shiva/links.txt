@@ -1,0 +1,3 @@
+CSE;http://www.cs.pes.edu
+ECE;http://www.ec.pes.edu
+BT;http://www.bt.pesit.edu
