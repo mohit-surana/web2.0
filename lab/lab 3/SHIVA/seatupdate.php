@@ -9,6 +9,7 @@
 	fclose($file);
 	
 	print_r($seats);
+	
 	if($coll == 'PESIT'){
 		if($dept == 'CSE' && $seats[0] > 0){
 			$seats[0] -= 1;
