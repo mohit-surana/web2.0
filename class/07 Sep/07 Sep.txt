@@ -1,0 +1,70 @@
+XHR Level 2
+    Latest version
+    Can create a form on the fly (refer code)
+
+If we have a bulky form, there is a possibility of the entire submission failing
+    Instead, we might want to upload logical segments of the form in parts
+        Eg. Address, CV, Card details
+
+Usually, POST is not "idempotent" - same response every time it is called
+
+For <input type="file">, you can have an attribute multiple which is used to control if single/multiple files can be uploaded
+For multiple, you refer it as domElement.files[index] to get each different file
+
+In php.ini
+    Must set
+        file_uploads = On
+        upload_max_filesize = 2M
+        max_file_uploads = 20
+
+At the server side, $_FILES will have all the files that have been uploaded
+    $_FILES['OurFileName']
+        This will have the metadata
+            filename
+            actual file
+
+--
+
+Bootstrap & Jquery:
+
+Imagine you have to make an element fade out.
+    Using opacity property and some js, you can do it
+        But this is tedious :(
+        Shifts focus from product to irrelevant stuff
+
+jquery
+    fast & easy
+
+Certain frameworks are available to provide an interface for animations and front end features
+    Eg. Bootstrap made by Twitter developers
+
+Bootstrap has
+    css - concerned with styling, contains properties for each element/class
+    js  - has jquery code (hence must add dependency)
+
+Bootstrap gives us
+    Consistency across browsers
+    Open source - can contribute, modify
+    Mobile first!
+        Design assuming mobile device
+        Then we can add to support more sizes
+
+Responsive Design
+    Depends on screen size
+        xs(< 768px), sm(768px - 990px), md(990px - 1200px), lg(> 1200px)
+
+Body onload
+    NOT A GOOD EVENT
+    WAITS FOR EVERYTHING to get completely loaded!
+        Even videos and images :O
+
+We could atleast wait for the DOM to be ready
+    document.readyState
+        interactive
+        complete
+            jquery waits for this
+
+jquery instructions have two parts:
+    selection.action
+
+Selection rules are same as css
