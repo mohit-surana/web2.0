@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Partial Form Upload</title>
+	<script type="text/javascript">
+		function init()
+		{
+			xhr = new XMLHttpRequest();
+			cname = document.getElementById("cname");
+			cv = document.getElementById("cv");
+		}
+
+		function uploadCV(event)
+		{
+			xhr.onreadystatechange = showStatus;
+			xhr.open("POST", "uploadcv.php", true);
+			form = new FormData(); // Create a form
+			form.append("candidateName", cname.value);
+			form.append("mycv", cv.files[0]);
+			// Can use this array to retrieve multiple files if we have that attribute set in the markup
+
+			xhr.send(form);
+		}
+
+		function showStatus()
+		{
+			if(this.readyState == 4 && this.status == 200)
+			{
+				alert(this.responseText);
+			}
+		}
+	</script>
+	<style type="text/css">
+		input
+		{
+			position: absolute;
+			left: 100px;
+		}
+	</style>
+</head>
+<body onload="init()">
+	<h2>Kaam Dhoondo!</h2>
+	<p><label>Name: <input type="text" id="cname" /></label></p>
+	<p><label>CV: <input type="file" id="cv" /></label></p>
+	<p><label><input type="button" value="Upload CV" onclick="uploadCV()" /></label></p>
+</body>
+</html>
