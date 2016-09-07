@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bootstrap</title>
+	<link rel="stylesheet" href="http://localhost/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+	<script src="http://localhost/jquery-2.2.4.js"> </script>
+	<script src="http://localhost/bootstrap-3.3.7-dist/js/bootstrap.min.js"> </script>
+	<script type="text/javascript">
+		// $().action;
+		function init()
+		{
+			// alert("jquery");
+			$("div#one").bind("click", hideH2);
+			$("div#two").bind("click", {"timeout":1000}, showH2v2);
+			// Optional params
+
+			$("div#two").html("Inner HTML has changed! :O");
+			$("input#inp").val("Some input");
+
+			jdiv = $("div#one"); // Jquery JSON Object
+			div = document.getElementById("one"); // DOM Element
+			// Don't mix them up!
+			// jVar will help maintain a good convention
+			cssobj = {"font-style": "italic", "color" : 'darkblue'};
+			jdiv.css(cssobj);
+		}
+		$("document").ready(init);
+
+		function hideH2(event)
+		{
+			// Select ALL h2 tags
+			// $("h2").fadeOut(2000, [callback]);
+			$("h2").slideUp(2000, showH2);
+
+			// For a single one, $("h2").eq(0).action
+		}
+
+		function showH2()
+		{
+			// event.data will have the properties we passed
+			$("h2").slideDown(2000, hideH2);
+		}
+
+		function showH2v2(event)
+		{
+			// event.data will have the properties we passed
+			$("h2").fadeIn(event.data.timeout);
+		}
+
+	</script>
+	<style type="text/css">
+	</style>
+</head>
+<!--
+	<body onload="alert('body')">
+	Happens after
+		$("document").ready(init);
+-->
+<body>
+	<h2>Welcome to JQUERY</h2>
+	<div id="one">Start See Saw</div>
+	<div id="two">Second Div</div>
+	<input type="text" id="inp">
+</body>
+</html>
