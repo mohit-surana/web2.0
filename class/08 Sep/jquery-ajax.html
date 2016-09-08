@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bootstrap</title>
+	<script src="http://localhost/jquery-2.2.4.js"> </script>
+	<script type="text/javascript">
+		function init()
+		{
+			jdiv1 = $("div#one");
+			jdiv2 = $("div#two");
+
+			jdiv2.animate({'font-size':'36px'}, 2000);
+			// Change the font size from current to 36px over a period of 2s
+			// MUST BE QUANTIFIABLE - can't do something like color
+		}
+		$("document").ready(init);
+
+		function makeAjax()
+		{
+			$.get("getmsg.php", {}, callbackOnSuccess);
+			// XHR Get call, readyState=4 & status=200 -> call callbackOnSuccess
+
+			// Similarly, we can also do a POST
+			// $.post(url, {jsonObject containing property:value pairs}, callbackOnSuccess);
+
+			// $.getScript(url [, callbackOnCompletionOfScriptExecution]);
+			// Download the script and IMMEDIATELY execute it as well (! Dangerous)
+
+			jdiv1.load("getmsg.php");
+			// Replaces the innerHTML with the content received
+
+			// Gives a lot of control
+			$.ajax({
+				"url"		: "getmsg.php",
+				"type"		: "GET", // GET, POST, PUT
+				"data"		: {"prop1": "val1"},
+				"dataType"	: "text", // What are you expecting from the server
+				"success"	: callbackOnSuccess,
+				"error"		: callbackOnError
+			});
+
+			// dataType can't be text/plain
+			// Say text, json and xml
+			// * msg will be the parsed version!
+		}
+
+		function callbackOnSuccess(msg)
+		{
+			// msg contains responseText (usually)
+			console.log("success");
+			alert(msg);
+			// If json, then must alert msg.attribute
+			// If xml, then use msg.documentElement
+		}
+
+		function callbackOnError(msg)
+		{
+			// msg contains responseText
+			console.log("error");
+			console.log(msg);
+			alert(msg);
+		}
+	</script>
+	<style type="text/css">
+	</style>
+</head>
+<body>
+	<h2>Fancy animations! :O</h2>
+	<div id="one">First Div</div>
+	<div id="two">Second Div</div>
+	<input type="text" id="inp" />
+	<input type="button" value="Make AJAX Call" onclick="makeAjax()" />
+</body>
+</html>
