@@ -1,0 +1,53 @@
+Twitter Bootstrap: (V3)
+
+1) A powerful Client-side (Front-end Framework) 
+  - makes Web Development faster and easier. Powerful features.
+2) Uses HTML5, CSS and Javascript.
+3) Mobile-first approach
+4) Emphasis on Responsive-Web Design (Apps/sites that automatically adjust themselves
+   to look good on all kinds of devices)
+5) Compatible with all browsers.
+6) Open Source and hence, 
+7) Customizable
+8) Bootstrap can be applied in two ways - a) Using only CSS styles (by employing
+   the "class" attributes on elements). b) Using Javascript. This uses JQuery.
+
+Bootstrap was released in 2011 by Twitter
+
+Four classes used for responsive web design (Grids) - 
+xs - Extremely small ( mobile devices)
+sm - Small (tablets)
+md - Medium (laptops/ small desktops)
+lg - Large Desktops
+
+Widths < 768px -> xs
+between 768 px and 990 px -> small
+Between 990 and 1200px -> medium
+Greater than 1200 px -> large
+
+In a GRID system, each row is split into 12 columns
+Gutter width is typically 30px (15px on either side of the column. This is analogous
+to the cell-padding attribute in <table>)
+
+Fixed vs Fluid Layouts - The "container" class and the "container-fluid" class are used.
+The Fluid layout stretches to meet the width of the device, 
+whereas the "Fixed layout" has a fixed width for each of the different screen sizes.
+(That is, for instance the layout width could be fixed at 1100px for any device whose 
+width is between 1150 and  1300px)
+	 
+The Grid System:
+Grid Sizes: < 768px, between 768 and 990, between 990 and 1200. Greater than 1200
+The classes used are:
+ : col-xs-*
+ : col-sm-*
+ : col-md-*
+ : col-lg-*
+ 
+ The screen is split into 12 columns. How many columns you want to span with the 
+ element is upto you. The addition must total 12 though. 
+ Otherwise behaviour is unexpected. Gutter width is 15 px on either side of the column.
+ 
+ For instance, if you want two divs to span the entire 12 columns for small devices,
+ you can use <div class="col-sm-6"> for both divs. Thus each div will span 6 columns
+ in this case for all devices which are small or bigger (medium and large too)
+ 

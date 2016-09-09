@@ -1,0 +1,48 @@
+List of topics:
+
+AJAX - Techniques
+
+1) Need for AJAX
+2) AJAX using Hidden Frames and Iframes
+    - the modus operandi
+	- advantages and disadvantages
+    - making POST requests with hidden frames
+3) AJAX with images or scripts
+   - advantages and headaches.
+   - sending text with image-based AJAX.
+   - difference between <script> based and <img> based AJAX
+   
+4) The XHR technique
+   - The readyState, status, responseText, responseXML properties
+   - making GET and POST requests.
+   - uploading files, using the FormData() constructor
+   - maintaining history with XHR. The pushState() and onpopstate
+   - Cross domain calls using Access-Control-* headers
+   - Cross domain using proxy server
+   - Fetching binary data using XHR. The "blob" response type
+   - processing XML and JSON using XHR.
+   - Comparison of various techniques.
+   
+5) Patterns - Need for,
+    - Predictive Fetch
+	- Multi-stage download
+	- Periodic Refresh
+	- Fallback patterns
+	- Submission Throttle (early and late send)
+	
+RSS:
+1) Need for RSS and the standard. Advantages of using RSS
+2) Subscribing to "feeds" and the RSS XML structure - the main nodes
+3) The <link> tag and the "alternate" attribute in HTML5
+4) History of RSS
+5) RSS vs Atom
+6) Third party feed readers - the xparser.js library and its class hierarchy
+7) Fetching and parsing RSS feeds using brute force.
+
+Bootstrap:
+1) The major advantages of Bootstrap
+2) The Grid structure
+3) Fixed and Fluid layouts
+4) The main "class"s for Responsive Web Design
+5) Screen sizes corresponding to those "classes"
+	
