@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bootstrap</title>
+	<link rel="stylesheet" href="http://localhost/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+	<script src="http://localhost/jquery-2.2.4.js"> </script> <!-- Must come before bootstrap.min.js because it is a dependency -->
+	<script type="text/javascript">
+		function init()
+		{
+			// On ALL anchor tags
+			$("a").bind("click", setActive);
+		}
+		$("document").ready(init);
+
+		function setActive(event)
+		{
+			// TODO: Modify so that the correct nav's active gets modified
+			$("li.active").attr("class", "");
+			event.target.parentNode.setAttribute("class", "active");
+		}
+
+	</script>
+	<style type="text/css">
+	</style>
+</head>
+<body>
+	<h1>Bootstrap! :O</h1>
+	<div class="container">
+		<div id="one" style="background-color:pink">First Div in outer container</div>
+		<div id="two" style="background-color:cyan">Second Div In outer container</div>
+	</div>
+	<br/>
+	<div class="container">
+		<div id="three" class="col-md-12 col-xs-6" style="background-color:pink">Third Div having col-md-12 and col-xs-6</div>
+		<div id="four" class="col-md-12 col-xs-6" style="background-color:cyan">Fourth Div having col-md-12 and col-xs-6</div>
+	</div>
+	<br/>
+	<div class="container-fluid">
+		<div id="five" style="background-color:pink">Fifth Div in outer container-fluid</div>
+		<div id="six" style="background-color:cyan">Sixth Div In outer container-fluid</div>
+	</div>
+	<br/>
+	<div class="container-fluid">
+		<div id="seven" class="col-md-12 col-xs-6" style="background-color:pink">Seventh Div having col-md-12 and col-xs-6 (container-fluid)</div>
+		<div id="eight" class="col-md-12 col-xs-6" style="background-color:cyan">Eight Div having col-md-12 and col-xs-6 (container-fluid)</div>
+	</div>
+	<br/>
+	<div class="well">
+		<input type="button" class="btn btn-primary" value="Primary Button" />
+		<input type="button" class="btn btn-secondary" value="Secondary Button" />
+		<input type="button" class="btn btn-danger" value="Danger Button" />
+	</div>
+	<br/>
+	<div class="container">
+		<ul class="nav nav-tabs mynav1">
+			<li class="active"><a href="#">One</a></li>
+			<li><a href="#">Two</a></li>
+			<li><a href="#">Three</a></li>
+			<li><a href="#">Four</a></li>
+		</ul>
+	</div>
+	<br/>
+	<div class="container">
+		<ul class="nav nav-pills mynav2">
+			<li class="active"><a href="#">One</a></li>
+			<li><a href="#">Two</a></li>
+			<li><a href="#">Three</a></li>
+			<li><a href="#">Four</a></li>
+		</ul>
+	</div>
+	<br/>
+	<div class="container">
+		<div class="col-xs-4">
+			<table class="col-xs-4 table table-bordered">
+				<tr>
+					<th>Table</th><th>Class</th><th>table-bordered</th>
+				</tr>
+				<tr>
+					<td>Data</td><td>Data</td><td>Data</td>
+				</tr>
+				<tr>
+					<td>Data</td><td>Data</td><td>Data</td>
+				</tr>
+			</table>
+		</div>
+		<div class="col-xs-4">
+			<table class="col-xs-4 table table-hover">
+				<tr>
+					<th>Table</th><th>Class</th><th>table-hover</th>
+				</tr>
+				<tr>
+					<td>Data</td><td>Data</td><td>Data</td>
+				</tr>
+				<tr>
+					<td>Data</td><td>Data</td><td>Data</td>
+				</tr>
+			</table>
+		</div>
+		<div class="col-xs-4">
+			<table class="col-xs-4 table table-striped">
+				<tr>
+					<th>Table</th><th>Class</th><th>table-striped</th>
+				</tr>
+				<tr>
+					<td>Data</td><td>Data</td><td>Data</td>
+				</tr>
+				<tr>
+					<td>Data</td><td>Data</td><td>Data</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<blockquote>
+		The best time to get started is the present.
+		<small>Adithya Abraham Philip</small>
+	</blockquote>
+</body>
+</html>
