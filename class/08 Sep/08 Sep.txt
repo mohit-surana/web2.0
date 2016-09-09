@@ -1,0 +1,19 @@
+bootstrap has both css and js(jquery) components
+
+For the js component, must include the jquery.js first!! (dependency)
+
+<link rel="stylesheet" href="http://localhost/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+<script src="http://localhost/jquery-2.2.4.js"> </script> <!-- Must come before bootstrap.min.js because it is a dependency -->
+<script src="http://localhost/bootstrap-3.3.7-dist/js/bootstrap.min.js"> </script>
+
+Bootstrap internally divides the screen into 12 columns
+
+class col-xs-6
+    For all devices having xs or MORE
+    Give this 6 columns
+
+class container
+    Keep the width of the element FIXED TILL the size of the screen is within a given range
+
+class container-fluid
+    Continuously keep the width equal to the screen size ( / window size)
