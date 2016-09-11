@@ -1,5 +1,8 @@
 XML vs JSON
 
+NOTE:
+    The notes for this day aren't comprehensive. You are recommended to refer ../../reference/TEST1_MATERIAL/*
+
 JSON:
     moive:
     {
@@ -52,9 +55,7 @@ handleError()
 Security:
     If not opened on localhost, XHR will give error because it is trying to make cross domain requests (localhost and file://)
 
-#################
-TODO 1 hour work
-#################
+-----------------------
 
 CORS: Cross Origin Resource Sharing
     A protected way of cross domain requests
