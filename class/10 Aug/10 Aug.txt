@@ -14,8 +14,8 @@ Part 1:
                     if we want to return a string, add it within the <head> tag - maybe as a cookie
             * We can make cross domain calls! (unlike frames)
             -ves:
-                ##########
-                Won't work if images are disabled
+                If we want to return strings as cookies, we have a restriction on the size as very little data will fit within the header
+                Won't work if images are disabled (or cookies if we are using them)
                 History can't be maintained
 
     PHP GD configuration
@@ -31,12 +31,11 @@ Part 2:
 
 XHR -> XMLHttpRequest
     readyState          -> 0 to 4
-        TODO: fill####
-        0 -
-        1 - Opened successfully
-        2 - Send
-        3 -
-        4 -
+        0 - Uninitialized.
+        1 - Loading (the open() method has been called)
+        2 - Loaded (request has been sent)
+        3 - response partially arrived.
+        4 - Completed (data has completely arrived and the connection has been closed)
     status              -> 200, 400, 500 etc
     onreadystatechange  ->
 
