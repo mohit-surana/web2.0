@@ -1,0 +1,83 @@
+<html>
+	<head>
+		<title></title>
+		<script type="text/javascript">
+			function init()
+			{
+				title = document.getElementById("title");
+				
+				// making left <td> act as <label>
+				cells = document.getElementsByTagName('td');
+				cells[0].onclick = function() { title.focus(); }
+			}
+
+			// obj is a Javascript object
+			// it's used to make the functions non-global
+			obj =
+			{	
+				// this is json format, no using global functions. format is object:property, property etc
+				xhr: new XMLHttpRequest(), 
+				// this is a function of the object "obj"
+				movie: null,
+				getDetails: function()
+				{
+					this.movie = title;
+					// if this.updateDetails is used, the change is fired on xhr, not obj. hence the object sent is an xhr object, not the object "obj"
+					this.xhr.onerror = this.handleError;
+					this.xhr.onreadystatechange = this.updateDetails;
+					
+					this.xhr.open("GET", "getDetails.php?movie=" + this.movie.value, true);
+					
+					this.xhr.send();
+					
+					
+				},
+				
+				updateDetails: function()
+				{
+					// if this.xhr.readystate is used, an error is set, because this function is called with xhr object, not "obj" object. hence use use this.readystate or obj.xhr.readystate
+					if(this.readyState == 4 && this.status == 200)
+					{
+						/*
+						response = JSON.parse(this.responseText);
+						document.getElementById("actor").value = response.actor;
+						document.getElementById("actr").value = response.actr;
+						document.getElementById("director").value = response.director;
+						// all properties get set to 0, readystate becomes 0 again.
+						*/
+						
+						root = this.responseXML.documentElement;								// returns nothing, NULL unless server says in the header that its sending back XML. If so, it returns a tree (DOM element)
+						console.log(root);														// XML DOM structure
+						console.log(root.childNodes);											// name of the nodes - title, lead, etc
+						console.log(root.childNodes.length);									// 4
+						console.log(root.childNodes[0].nodeName);								// title
+						console.log(root.childNodes[0].firstChild.nodeValue);					// Swadesh
+						console.log(root.getElementsByTagName("lead")[0].firstChild.nodeValue);	// SRK
+						console.log(this.responseText);											// gives the return string
+						this.abort();
+					}
+				},
+				handleError: function()
+				{
+					alert("an error occurred");
+				}
+			}
+		</script>
+	</head>
+	<body onload="init()">
+		<table>
+				<tr>
+					<td>Movie Name</td><td><input type="text" id="title" onblur="obj.getDetails()"/></td>
+				</tr>
+				<tr>
+					<td>Movie Director</td><td><input type="text" id="director" readonly/></td>
+				</tr>
+				<tr>
+					<td>Movie Actor</td><td><input type="text" id="actor" readonly/></td>
+				</tr>
+				<tr>
+					<td>Movie Actress</td><td><input type="text" id="actr" readonly/></td>
+				</tr>
+			</table>
+	</body>
+</html>

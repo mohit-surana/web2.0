@@ -82,3 +82,8 @@ For non-simple
             Respond with two fields
 
         If successful, then my next request will be a POST
+
+--------
+
+Credits:
+M2J aka Cueball for xhr.html and getdetails.php
