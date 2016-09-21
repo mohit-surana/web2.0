@@ -1,0 +1,60 @@
+Chat messenger (Server based)
+	Uses websockets
+	Polling (bad)
+		Even with exponential fallback
+			16s -> 32s
+			What if the dude types at 17s
+
+Instead, let's make a request and let the server respond to it later
+	"When someone types, let me know"
+	Server may use long poll
+		\
+		 -->
+		 -->
+		 -->
+		 --><--
+		/
+	Send and close it
+
+	Now after a message, it is possible that there are multiple replies (normal chat)
+
+	Hi
+		\
+		/	Sup
+		/	Man
+		/	How're
+		/	You?
+		close
+
+	HTTP Stream
+
+W3C says
+	Browser should not allow more than 2 simultaneous requests to the same domain
+	Remaining requests get queued up
+
+Reverse AJAX / COMET / SERVER PUSH
+	Frameworks
+		Java
+			Asynchronous Servlets
+		Pushlets
+		ICEFaces
+		DWR
+
+To use ob_flush(), must override the condition in the ini file
+	;output_buffering = 4096
+	; Until you send 4KB of data, it won't send it
+	output_buffering = Off
+
+Firefox has browser side buffering
+	Can't disable
+Use Chrome B)
+
+Techniques:
+	XHR
+		readyState
+	iFrame
+		Problem of error detection
+			Use heartbeat
+	SSE
+		Server send events
+		Most popular
