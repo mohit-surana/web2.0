@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bootstrap Advanced</title>
+	<link rel="stylesheet" href="http://localhost/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+	<script src="http://localhost/jquery-2.2.4.js"> </script> <!-- Must come before bootstrap.min.js because it is a dependency -->
+	<script src="http://localhost/bootstrap-3.3.7-dist/js/bootstrap.min.js"> </script>
+	<script type="text/javascript">
+		function init()
+		{
+			jdiv = $("#prg");
+			jspan = $("span");
+			count = 0;
+			$("button#mod").bind("click", function() {$("#dlg").modal();});
+			// Bootstrap defines its own events and does not depend on js events
+			$("#dlg").on("hide.bs.modal", function() { alert("Happy April Fools Day! :P"); });
+			$("#pop").popover();
+			progress();
+		}
+		$("document").ready(init);
+		function progress()
+		{
+			if(count > 5)
+			{
+				jdiv.attr("class", "progress-bar progress-bar-success active");
+				return;
+			}
+			var style = {
+				"width"	: 20*count + "%"
+			}
+			jdiv.css(style);
+			jspan.html(style.width);
+			count += 1;
+			setTimeout(progress, 895);
+		}
+	</script>
+	<style type="text/css">
+	</style>
+</head>
+<body>
+	<br/>
+	<div class="container">
+		<div id="one" class="col-sm-4">
+			<div id="prg-outer"class="progress progress-striped active">
+				<div id="prg" class="progress-bar progress-bar-info" style="width:0%">
+					<span>0%</span>
+				</div>
+			</div>
+			<button id="mod" class="btn btn-primary">Check if you won</button>
+		</div>
+		<div class="col-sm-4">
+			<div id="dlg" class="modal">
+				<div class="modal-dialog">
+					<div class="modal-header">
+						<span>URGENT INFO!</span>
+						<button class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						CONGRATULATIONS!! YOU HAVE WON $299792458!! HURRY AND CLAIM AT WWW.DOODHWALA.COM BEFORE SOMEONE ELSE DOES!
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-danger" data-dismiss="modal">Not interested!</button>
+						<button class="btn btn-success" data-dismiss="modal">Gimme my money!</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="three" class="col-sm-4">
+			<button id="pop" class="btn btn-primary" data-toggle="popover" data-placement="right" data-content="This is on the right, right?">POPOVER</button>
+		</div>
+	</div>
+</body>
+</html>
