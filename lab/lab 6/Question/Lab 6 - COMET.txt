@@ -1,0 +1,46 @@
+The next lab exercise for the semester - LAB 6
+
+This one is on reverse AJAX.
+
+PROBLEM STATEMENT:
+-----------------------------
+
+Implement the CHAT application with two chat windows (one for each party).
+There should be two chat windows.
+
+Use the "Server Sent Events" Technology to accomplish the task.
+
+Hints/Tips:
+--------------------------
+
+1. Use ev = EventSource("server.php"); to trigger a SSE connection from client side.
+
+2. Use ev.addEventListener() to register for the event.
+
+3. In the handler function read event.data to get the server sent message.
+   (See class room example for more details or refer notes)
+   
+4. From the server side, set content-type to "text/event-stream".
+
+5. Fire events from the server side whenever it is ready using event/data property pairs.
+   That is, if the server wants to send a string called "hello" through an event
+   named "myevent",
+   
+   then:
+   
+   echo "event:myevent\n";
+   echo "data: hello\n\n";
+   
+   ( Don't forget the double newline in the last "data" line.
+   
+6. To make life simpler, let the two parties invoke different server scripts
+   and also write to different files (in practical cases they will actually
+   launch the same server script and write to the same file as well).
+   
+7. When you have different files to monitor, you can just cut/paste code 
+   and use it for either party.
+   
+8. Also, use separate browser WINDOWS for the two parties. The same window means 
+   the same JS DOM and can cause a lot of confusion while coding.
+   
+   Good Luck :)
