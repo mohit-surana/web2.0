@@ -1,0 +1,32 @@
+Credits: Kai & Aravind CM
+
+RSS vs Atom:
+	Major differences:
+	   Frozen:
+			RSS specification is frozen, no significant changes can be made
+			ATOM is under IETF license, can issue further dev (However nobody
+			  wants to, but I guess that's another issue)
+	   Protocols:
+			RSS has 2 major protocols, blogger and metaweblog. Known issues
+			  of inter compatibility are present
+			Atom has a unified protocol Atom publishing protocol
+	   Payload:
+			RSS payload maybe any format (unspecified), could be text or html
+			  anything. We can't tell
+			Atom requires you to enclose it in a tag specifying the type.
+			  (You will never attempt inappropriate parse)
+	   Content:
+			RSS channel is required to have link, title, description while
+			  Item need not even
+			ATOM requires both to have and an additional timestamp and a
+			  unique identifier
+	   Autodiscovery:
+			The application/rss+xml is not even a standard
+			while application/atom+xml is a standard (Also has self subscribe)
+ Minor:
+	   Language:
+			RSS has language tag
+			ATOM uses xml:lang
+	  Categories:
+			RSS has label and domain
+			Atom also has those + one more for humans
