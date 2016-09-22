@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Iframes COMET</title>
+	<script src="http://localhost/jquery-2.2.4.js"> </script>
+	<script type="text/javascript">
+		function init()
+		{
+			timer = 0;
+			ifr = document.getElementById("help");
+		}
+		$("document").ready(init);
+
+		obj =
+		{
+			"monitor"	:	function()
+			{
+				ifr.src = "ifr_monitor.php";
+			},
+
+			"updateMain":	function(str)
+			{
+				newdiv = document.createElement("div");
+				newdiv.innerHTML = str;
+				document.body.appendChild(newdiv);
+			},
+
+			"heartbeat":	function()
+			{
+				if(timer)
+				{
+					clearTimeout(timer);
+				}
+				// Get ready to reconnect in 10s
+				timer = setTimeout(obj.monitor, 10000);
+			}
+		};
+	</script>
+	<style type="text/css">
+	</style>
+</head>
+<body>
+	<iframe id="help" width="300" height="200" ></iframe>
+	<input type="button" value="MONITOR" onclick="obj.monitor()">
+</body>
+</html>
