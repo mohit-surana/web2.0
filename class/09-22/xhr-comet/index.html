@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AJAX COMET</title>
+	<script src="http://localhost/jquery-2.2.4.js"> </script>
+	<script type="text/javascript">
+		function init()
+		{
+			strlen = 0;
+			xhr = new XMLHttpRequest();
+		}
+		$("document").ready(init);
+
+		function monitor()
+		{
+			xhr.onreadystatechange = updateMain;
+			xhr.open("GET", "xhr_monitor.php", true);
+			xhr.send();
+		}
+
+		function updateMain()
+		{
+			if(xhr.readyState == 3 && xhr.status == 200)
+			{
+				if(xhr.responseText.indexOf("Fatal") == -1)
+				{
+					newdiv = document.createElement("div");
+					newdiv.innerHTML = xhr.responseText.slice(strlen);
+					document.body.appendChild(newdiv);
+					strlen = this.responseText.length;
+				}
+			}
+			else if (xhr.readyState == 4 && xhr.status == 200)
+			{
+				xhr.abort();
+				monitor();
+			}
+		}
+	</script>
+	<style type="text/css">
+	</style>
+</head>
+<body>
+	<input type="button" value="MONITOR" onclick="monitor()">
+</body>
+</html>
