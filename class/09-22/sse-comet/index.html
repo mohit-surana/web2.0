@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HTML5 SSE</title>
+	<script type="text/javascript">
+		function getmsg()
+		{
+			// If the server closes connection, it auto reconnects :O
+			ev = new EventSource("sse_monitor.php");
+			ev.addEventListener("myevent", handler);
+		}
+
+		function handler(event)
+		{
+			console.log(event.data);
+			// ev.close();
+		}
+	</script>
+	<style type="text/css">
+	</style>
+</head>
+<body>
+	<input type="button" value="MONITOR" onclick="getmsg()">
+</body>
+</html>
