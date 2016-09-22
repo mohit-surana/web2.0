@@ -1,0 +1,11 @@
+Fatal error: Maximum execution time of 30 seconds exceeded in C:\Apache24\htdocs\wtclass10\COwMET.php on line 14
+
+php.ini
+	max_execution_time = 30
+	Dangerous to modify! :O
+
+HTML 5 has SSE
+	Server Sent Events
+
+EventSource()
+Content-type:text/event-stream
