@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bootstrap and AJAX</title>
+	<link rel="stylesheet" href="http://localhost/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+	<script src="http://localhost/jquery-2.2.4.js"> </script> <!-- Must come before bootstrap.min.js because it is a dependency -->
+	<script src="http://localhost/bootstrap-3.3.7-dist/js/bootstrap.min.js"> </script>
+	<script>
+		function init()
+		{
+			title = document.getElementById("favMovie");
+			jtitle = $("#favMovie");
+			jtitle.bind("change", getSummary);
+			jsummary = $("#summary");
+			jsummary.load("fetchSum.php?title=" + encodeURIComponent(title.value));
+		}
+		$("document").ready(init);
+		function getSummary()
+		{
+			jsummary.load("fetchSum.php?title=" + encodeURIComponent(title.value));
+		}
+	</script>
+	<style>
+		img
+		{
+			height: 42%;
+			width: 42%;
+		}
+	</style>
+</head>
+<body>
+	<br/>
+	<div class="container-fluid">
+		<div class="col-xs-3">
+			<div class="well">
+				<label>
+					Pick one of our favourites<br/>
+				<select id="favMovie">
+					<option value="Forrest Gump">FORREST GUMP</option>
+					<option value="Catch Me If You Can">CATCH ME IF YOU CAN</option>
+					<option value="The Da Vinci Code">THE DA VINCI CODE</option>
+					<option value="Saving Private Ryan">SAVING PRIVATE RYAN</option>
+					<option value="Cast Away">CAST AWAY</option>
+					<option value="Angels &amp; Demons">ANGELS &amp; DEMONS</option>
+				</select>
+				<br/><br/><label>Search Movie by Title:<br/><input type="text" id="movieSearch" /></label>
+				<br/><br/><button class="btn btn-primary"onclick="fetchResults()">Search Movies</button><br/>
+			</div>
+		</div>
+		<div class="col-xs-9">
+			<div class="bg-warning input-lg">
+				<p>Hey! Have you watched "Angels &amp; Demons"?</p>
+			</div>
+			<div>
+				<h2>The best movies involve Tom Hanks!</h2>
+				<blockquote>
+					Everybody has something that chews them up and, for me, that thing was always loneliness. The cinema has the power to make you not feel lonely, even when you are.
+					<small>Tom Hanks</small>
+				</blockquote>
+			</div>
+			<div>
+				<h2>Movie Summary</h2>
+				<div id="summary">Summary Here.</div>
+			</div>
+			<div>
+				<h2>Some Movies</h2>
+				<table class="table table-striped">
+					<tr>
+						<th>Movie</th><th>Director</th>
+					</tr>
+					<tr>
+						<td>Cast Away</td><td>Robert Zemeckis</td>
+					</tr>
+					<tr>
+						<td>Catch Me If You Can</td><td>Stephen Spielberg</td>
+					</tr>
+					<tr>
+						<td>Angels &amp; Demons</td><td>Ron Howard</td>
+					</tr>
+				</table>
+			</div>
+			<div>
+				<div class="col-xs-3">
+					<img src="img/castaway.jpg" />
+				</div>
+				<div class="col-xs-3">
+					<img src="img/catch_me_if_you_can.jpg" />
+				</div>
+				<div class="col-xs-3">
+					<img src="img/angels_&amp;_demons.jpg" />
+				</div>
+				<div class="col-xs-3">
+					<img src="img/the_da_vinci_code.jpg" />
+				</div>
+				<div class="col-xs-3">
+					<img src="img/saving_private_ryan.jpg" />
+				</div>
+				<div class="col-xs-3">
+					<img src="img/forrest_gump.jpg" />
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
