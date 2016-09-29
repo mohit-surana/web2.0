@@ -1,0 +1,99 @@
+session_start()
+	Make sure you do this if you want to use
+
+Servlets
+	Will be a problem if we have 200 servlet threads on while loop (eg chat application)
+
+Solution
+	Asynchronous servlets
+
+-- x --
+
+Web Services
+	Services "obtainable" on the web
+		Why not do it yourself?
+			Re-inventing the wheel
+			Faster product development
+			Cross Platform access
+
+Website | Web App | Web Service
+
+Websites usually serve static pages
+Web app has some kind of intelligence that differentiates the client
+Web service typically not used by humans. Used by some piece of software
+	Never returns markup. Either xml, json or both
+
+Client usually never hits the services. They usually ask the server which may use the services
+
+API
+	Human readable well designed URL
+
+REST-ful (REpresentational State Transfer)
+	http as a client protocol
+	xml/json returned (no markup)
+		try to provide both. If not, then json pls
+	set of URLs to access the services
+	discoverable
+	self describing
+	CRUD operations
+		Create POST
+		Read GET
+		Update PUT
+		Delete DELETE
+
+Architectural model
+	Resources
+		eg. Image
+	Representation
+		eg. JPEG
+	Connectors
+		eg. ####
+
+List of criteria:
+	Must have communication split across server and client
+	Stateless
+	All responses must be cacheable
+	Server architecture must be layered
+	All components in the system must provide a uniform interface
+
+	29th September
+	This day will be remembered
+
+The state of the resource is transferred to the client side
+Connectors connect representation and resource
+
+URI = URN + URL
+(Well approximately :p)
+
+http://localhost/usn.html#three
+	Location is http://localhost/usn.html
+	Resource is three
+
+APIs
+
+Question:
+	Given a USN, then provide some information
+
+	http://server/userinfo.php?usn=9
+		This is bad cuz the guy will know that we are using php
+	Let's hide that and just provide a common interface
+
+	http://server/userinfo/usn/9
+
+Notes on Configuration:
+
+	httpd.conf
+		Uncomment the following line
+			LoadModule rewrite_module modules/mod_rewrite.so
+
+	Most of the config is global
+		If we want to change it at a directory level
+			Move the configuration into the different directories
+			Then they will be called .htaccess
+
+	Before we write rules, we must ask apache if we can override the normal rule
+		Look for <Directory "c:/Apache24/htdocs">
+		    Change
+				AllowOverride None
+				to
+				AllowOverride All
