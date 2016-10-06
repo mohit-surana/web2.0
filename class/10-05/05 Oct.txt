@@ -1,0 +1,25 @@
+Why can't we call the services directly?
+	Cross domain, you see!
+
+## TODO NOTES FOR TODAY
+
+SOAP based
+	Simple Object Access Protocol
+	xml based protocol
+
+
+
+UDDI
+	Universal Description Discovery and Integration
+WSDL
+
+publish
+honour
+naming service
+
+rpc
+rmi
+
+ws.class
+
+NOTE: NOTES WILL BE UPDATED LATER ON! (wasn't listening in class)
