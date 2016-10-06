@@ -1,0 +1,72 @@
+Semantic Web
+
+Performance of AJAX apps
+	Successful response in a reasonable period
+	Doesn't reach the server
+		Browser may also drop requests
+	Erroneous response
+		Eg. chat at the end of 30s, fatal error dumped
+			200 is the status code - misleading
+		We have to do some client side code to interpret what went wrong
+	Response altered in transit
+	No response
+		Server may drop requests
+	Queueing of requests
+		Client side
+		Server side
+
+Get hold of the browser's queue (moving towards a priority queue approach)
+http 1.1
+	Only two simultaneous requests at a time to the same domain!
+If we remove this restriction, then a lot of problems get solved.
+
+How?
+	Requests from different ports
+	Use subdomains (SoyModhov)
+		mail.google.com
+		drive.google.com
+	Proxy servers (KD)
+		Still rule applies
+		Use load balancers
+		CORS issue
+			Image, script based ajax etc
+	Change settings on the client browser :(
+		Firefox
+			about:config
+				network.http.max-persistent-connections-per-server
+					6 CHEAT :O
+	Batch / Group requests
+		Make custom requests
+		Building on top of vanilla HTTP
+		Extra code
+
+		Problems
+			Speed of slowest determines overall speed
+			One fails all fails
+
+Fun with PHP :P
+	session_start()
+		PHP locks the session!!! :O
+		So for the example (Code will be uploaded later)
+			Appears to be sequential
+
+Caching of AJAX
+	Discouraged in general
+	Can be done if the data is not likely to change
+		Cache control etc
+
+cache.php
+
+<?php
+	date_default_timezone_set("Asia/Kolkata");
+	$time = time();
+	$exprtime = $time + 10; // 10 days later
+	// Thu, 06 Oct 2016 15:20:43
+	$exprdate = date("D, d M Y H:i:s", $exprtime);
+
+	// PROBLEM! Browsers may cache data even AFTER expiry date!
+	// header("Expires: $exprdate");
+
+	header("Cache-control:max-age=10");
+	echo $exprdate;
+?>
