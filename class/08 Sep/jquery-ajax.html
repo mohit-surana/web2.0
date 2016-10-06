@@ -33,7 +33,7 @@
 			$.ajax({
 				"url"		: "getmsg.php",
 				"type"		: "GET", // GET, POST, PUT
-				"data"		: {"prop1": "val1"},
+				"data"		: {"prop1": "val1"},	// Auto converts into query string params
 				"dataType"	: "text", // What are you expecting from the server
 				"success"	: callbackOnSuccess,
 				"error"		: callbackOnError
