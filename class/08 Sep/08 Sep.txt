@@ -1,6 +1,6 @@
 bootstrap has both css and js(jquery) components
 
-For the js component, must include the jquery.js first!! (dependency)
+For the js component, must include the jquery.js first! (dependency)
 
 <link rel="stylesheet" href="http://localhost/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
 <script src="http://localhost/jquery-2.2.4.js"> </script> <!-- Must come before bootstrap.min.js because it is a dependency -->
