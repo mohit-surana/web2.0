@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>CRUD Lab</title>
+		<script type="text/javascript">
+			function init()
+			{
+				xhr = new XMLHttpRequest();
+				usn = document.getElementById("usn");
+				sname = document.getElementById("sname");
+				dept = document.getElementById("dept");
+				grade = document.getElementById("grade");
+			}
+
+			function showStatus()
+			{
+				if(xhr.readyState == 4 && xhr.status == 200)
+				{
+					alert(xhr.responseText);
+				}
+			}
+
+			function createOp()
+			{
+				xhr.onreadystatechange = showStatus;
+				xhr.open("POST", "http://localhost:81/studservice/create", true);
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				/*
+				form = new FormData();
+				form.append("usn", usn.value);
+				form.append("sname", sname.value);
+				form.append("dept", dept.value);
+				form.append("grade", grade.value);
+
+				xhr.send(form);
+				*/
+				var query = "usn=" + usn.value + "&sname=" + sname.value + "&dept=" + dept.value + "&grade=" + grade.value;
+				xhr.send(query);
+			}
+
+			function readOp()
+			{
+
+			}
+
+			function updateOp()
+			{
+				xhr.onreadystatechange = showStatus;
+				xhr.open("POST", "http://localhost:81/studservice/create", true);
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				/*
+				form = new FormData();
+				form.append("usn", usn.value);
+				form.append("sname", sname.value);
+				form.append("dept", dept.value);
+				form.append("grade", grade.value);
+
+				xhr.send(form);
+				*/
+				var query = "usn=" + usn.value + "&sname=" + sname.value + "&dept=" + dept.value + "&grade=" + grade.value;
+				xhr.send(query);
+			}
+
+			function deleteOp()
+			{
+
+			}
+		</script>
+	</head>
+	<body onload="init()">
+		<table>
+			<tr>
+				<td>USN: </td><td><input type="text" id="usn" /></td>
+			</tr>
+			<tr>
+				<td>Name: </td><td><input type="text" id="sname" /></td>
+			</tr>
+			<tr>
+				<td>Dept: </td><td><input type="text" id="dept" /></td>
+			</tr>
+			<tr>
+				<td>Grade: </td><td><input type="text" id="grade" /></td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<td><button onclick="createOp()">CREATE</button></td>
+				<td><button onclick="readOp()">READ</button></td>
+				<td><button onclick="updateOp()">UPDATE</button></td>
+				<td><button onclick="deleteOp()">DELETE</button></td>
+			</tr>
+		</table>
+	</body>
+</html>

@@ -2,11 +2,11 @@ The next one is on Web Services. (LAB EXERCISE - 7)
 
 For now you just build the core functionality.
 
-The Problem Statement is very generic. You will build a 
+The Problem Statement is very generic. You will build a
 PHP script that can perform the four CRUD operations.
 That is, the same script will perform Create, Read, Update
-and delete. You can update/read either a database or a file. 
-The choice is yours. 
+and delete. You can update/read either a database or a file.
+The choice is yours.
 
 You will deal with student information.
 If it is a database, the columns will be USN, NAME, DEPT and GRADE.
@@ -20,12 +20,12 @@ For READ:  http://localhost/studservice/get/usn/[000-999]
 For DELETE: http://localhost/studservice/delete/usn/[000-999]
 For UPDATE: http://localhost/studservice/update/usn/[000-999]
      (Use PUT as the method and send whatever you want to update)
-            
+
 For CREATE: http://localhost/studservice/create
 (Use POST as the method and send basic info needed to create a new student)
 
 For all the calls, you will return a JSON as result. The JSON will contain
-the status of the request (whether successful or not) and some data (in case of 
+the status of the request (whether successful or not) and some data (in case of
 READ).
 
 That is, the JSON will have the following structure:
@@ -41,42 +41,42 @@ Tips:
 --------------------------------
 1. A single PHP script will do all the job. But in that case how do we find out
    what method was used by the client to make the request?
-   
+
    Use the Super Global $_SERVER and read the property 'REQUEST_METHOD'. That is,
-   
+
    $method = $_SERVER['REQUEST_METHOD'];
-   
+
 2. Read the input parameters and then use if-else conditions to do the various
    operations.
-   
+
 3. The operations are mapped as follows:
 	READ:  GET
 	CREATE: POST
 	UPDATE: PUT
 	DELETE: DELETE
-	
+
 	Please note that PHP does not provide super-globals for PUT and DELETE methods.
 	That is, there is no $_PUT or $_DELETE to read the parameters sent by the client
 	through these two methods.
-	
-	So what to do? 
-	
+
+	So what to do?
+
 	Try, $str = file_get_contents("php://input");
 	and then echo $str and see what you get ;)
-	
+
 4. If you use database (mysql on linux) then use mysql_connect, mysql_select_db,
    mysql_query and mysql_fetch_array or mysql_fetch_row calls.
-   
+
 5. If you use files, then use fopen, fread or fgets, fclose calls.
 
 6. On the client side, provide four buttons, one each for READ, CREATE, UPDATE
    and DELETE. (See step 3. Only AJAX calls allow these methods).
    Provide text boxes for USN (and data if required for CREATE/UPDATE)
-   
+
    On clicking each of the buttons invoke the SAME PHP SCRIPT and perform the
    necessary operations, receive a JSON and print out the results.
 
 7. Create .htaccess file in a separate folder under /var/www/html in linux and
    in htdocs on windows. Write mapping rules here as taught in class.
-   
+
 IN REALITY THE CLIENT DOES NOT INVOKE THE WEB SERVICE. WE WILL COVER THIS IN THEORY.

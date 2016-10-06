@@ -1,0 +1,6 @@
+DirectoryIndex home.html
+Options -Indexes
+
+RewriteEngine On
+RewriteRule ^(get|delete|update)/usn/(\d\d\d) usn.php?usn=$2
+RewriteRule ^create usn.php
