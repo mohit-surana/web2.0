@@ -1,0 +1,91 @@
+Caching continued
+	What if you still want to get a new page without changing Expires header to Cache Control?
+		Modify and send with a new query string
+			Eg. GET code.php?timestamp=920384
+		OR DO POST :D
+			POST responses are NEVER cached
+
+How to send a LOT of data from the client side?
+	Huge form
+	Club into groups
+		Send each group at a time
+
+	All browsers (except Firefox) do POST in two steps
+		header fields (server confirms the header fields)
+		body fields
+
+	Hence try to use GET as far as possible
+
+	How to accomplish the same on Firefox?
+		And make it lightweight
+			HEAD
+
+Caching on Server or Client
+	Better to keep on the server if the data is not likely to get fetched that often
+	How long to keep in memory?
+		Use the heartbeat done for some other functionality to keep it alive
+
+Large file and caching not possible
+	Eg. 5MB again again :(
+	Keep once in client cache, send diff from server
+		Headache of decoding logic on the client
+	Compress and send
+		TTFB(time to first byte) will increase
+			Server needs time to compress and send
+		If same data fetched by multiple people
+			Pre compress and store on the server
+			WHICH FORMAT? How will the client know?
+				Client will send the formats it can decompress as part of the Header :')
+
+compress.php
+	$_SERVER
+		HTTP_ACCEPT_ENCODING.... gzip, deflate
+	Actual header field that came from the browser
+	Accept-encoding
+		Read this header field and see if you can compress into that
+
+--
+
+<img id="logo" src="" />
+	Bad practice, it goes to the server (relative path, hence it hits base url)
+
+Minification
+	To compress js scripts
+	Remove white spaces
+	change window.____._____ to w = window, w.____ etc
+	change colour names to hash code
+
+Try and use external scripts as much as possible
+	Common functionality
+	Will cache the external js files
+
+GET as much as possible (1 step instead of 2 step)
+
+--
+
+Question:
+
+	Only two simultaneous connections are allowed to a particular domain
+	Client side queue
+
+	Client queue
+		Periodic refresh, predictive fetch and NOW we got a button click!
+
+	Button will be waiting for long
+		But we want fined grained control over the queue
+
+Active Queue
+[ ] [ ]
+
+Pending Queue
+[ ] [ ] [ ] [ ] [ ] [ ] [ ]
+
+Pushed from active queue to browser queue
+And new ones in pending queue
+
+Keep pending queue sorted based on priority
+If something has waited for a longer time, increase priority
+
+Have a manager class, queue class
+Client that bombards with 100s of requests
+And will test!
