@@ -1,18 +1,7 @@
 <?php
 	/*
 	header("Content-type:application/json");
-	extract($_GET);
-	$result = array();
-	if($usn == 92)
-	{
-		$result["usn"] = "1PI13CS092";
-		$result["name"] = "Mohit Surana";
-		$result["username"] = "doodhwala";
-	}
-	else
-	{
-		$result["error"] = "Not found bro!";
-	}
+
 	echo json_encode($result);
 	*/
 
@@ -40,9 +29,11 @@
 		`usn` varchar(255) NOT NULL default '',
 		`name` varchar(255) NOT NULL default '',
 		`dept` varchar(255) NOT NULL default '',
-		`grade` decimal,
+		`grade` decimal(5, 3),
 	    PRIMARY KEY  (`USN`)
 	)";
+	// Reference for the DECIMAL data type
+	// http://stackoverflow.com/questions/6999582/how-to-insert-decimal-into-mysql-database
 
 	if(!$conn->query($query)){
 	    die("Table creation failed: (" . $conn->errno . ") " . $conn->error);
@@ -57,7 +48,7 @@
 		parse_str($str, $post_vars);
 		extract($post_vars);
 		$grade = (float) $grade;
-		$query = "INSERT INTO `student_details` VALUES('$usn', '$sname', '$dept', '$grade')";
+		$query = "INSERT INTO `student_details` VALUES('$usn', '$sname', '$dept', $grade)";
 		$res = mysqli_query($conn, $query);
 		echo json_encode($res);
 	}
@@ -71,7 +62,8 @@
 		{
 			die("Query execution failed" . mysqli_error($conn) . "\n");
 		}
-		echo json_encode($res);
+		$row = mysqli_fetch_array($res);
+		echo json_encode($row);
 	}
 	else if($method == 'PUT')
 	{
@@ -80,22 +72,17 @@
 		parse_str($str, $put_vars);
 		extract($put_vars);
 		$grade = (float) $grade;
-		// TODO: Convert to update
-		$query = "UPDATE `student_details` WHERE usn = '$usn' VALUES('$usn', '$sname', '$dept', '$grade')";
+		$query = "UPDATE `student_details` SET name = '$sname', dept = '$dept', grade = $grade WHERE usn = '$usn'";
 		$res = mysqli_query($conn, $query);
 		echo json_encode($res);
 	}
 	else if($method == 'DELETE')
 	{
 		// Delete
-		$str = file_get_contents("php://input");
-		parse_str($str, $put_vars);
-		extract($put_vars);
-		$grade = (float) $grade;
-		$query = "INSERT INTO `student_details` VALUES('$usn', '$sname', '$dept', '$grade')";
+		extract($_GET);
+		$query = "DELETE FROM `student_details` WHERE usn = '$usn'";
 		$res = mysqli_query($conn, $query);
 		echo json_encode($res);
 	}
-
 	mysqli_close($conn);
 ?>
