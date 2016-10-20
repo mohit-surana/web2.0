@@ -1,0 +1,40 @@
+XHR calls
+	It will be weird if some background call is made and causes the 401 popup
+
+HttpAuth with XHR
+	xhr_auth.html
+
+DIGEST
+	has a "nonce"
+
+Standard practice
+	BASIC + SSL (https)
+
+CSRF
+	pronounced as sea-surf
+	Cross Site Request Forgery
+	
+	Very subtle difference between this and XSS
+	
+	crux - Lure an unsuspecting user to their site (hacker's)
+	eg.
+		Links to books
+			B1
+			B2
+			B3
+			B4 - KD link or some image (src = ...)
+				Goes to the vulnerable server
+				This also points and promises to the same server
+				Hacker sends some scripts along with it
+				Eg. some transaction
+					bank.com/account_transaction.php?accountTo=123456&amt=1000
+					>:D  
+			B5
+		
+			One of B1 to B5 were used to authenticate
+			Now the browser session is authenticated
+				Diff tabs :O
+				Usually allows 
+		
+	Takes advantage of the fact that you have already been authenticated
+

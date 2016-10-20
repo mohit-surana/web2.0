@@ -1,0 +1,61 @@
+Web Security:
+
+1. Link
+	Phishing
+		Genuine looking page
+		Obtain critical user info
+		If he sends redirection to the original page, the user may have a doubt
+			Return invalid password and then let them login to the original page
+2. Spam
+	Just irritation
+	YOU HAVE WON 203749852374589237 CRORE RUPEES DOLLARS!!!$!$!$!
+		Ask them to make a small deposit ($5 or something)
+
+3. Database breach
+	SQL Injection
+		select * from table where usn = '$usn';
+		User sends
+			usn -> LOLz';delete from table;select .... '092
+
+		See also:
+			Bobby Tables (##)
+
+4. DDoS attack
+	Distributed Denial of Service
+	Server getting bombarded by calls
+
+5. DNS Poisoning
+
+6. Packet sniffing or Man in the Middle Attack
+	Esp cookies -> plain text
+	* Heartbleed
+		https security issue
+		SSL protocol / TLS (Transport Layer Security)
+		OpenSSH -> Open source version
+
+		Here, the provision for heartbeat was, client sends a random string
+		Server gets it, bounces it back.
+		If client receives, then server is alive!
+
+		Problem:
+			Sending (String, length)
+			Server would do malloc(length), copy paste and send
+			Hacker
+				hello, 5
+				bye, 3
+				bye, 5000
+					Get extra data :O
+			Issue
+				Heart beats are not logged
+			Fix
+				Just user string and call strlen()
+
+7. XSS Attacks
+	Cross Site Scripting (80% of attacks)
+	XST
+	Attack on the client side
+
+8. Expired Certificates
+	Very *
+
+9. CSRF (Cross Site Request Forgery)

@@ -1,0 +1,18 @@
+Look at index.html and book.php
+
+mysqli_query is good because it allows only ONE query
+	STILL can be exploited
+
+DO NOT SHOW ERRORS TO THE USER!
+	mysqli_error()
+	Ok during development
+	REMOVED in the production version
+
+SANITIZE inputs
+	Better to tell the user that the format is invalid
+
+Don't run queries as privileged user
+	eg. root
+
+MySQL
+	All meta data stored in information_schema

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Http Auth with XHR</title>
+		<script type="text/javascript">
+			function getAuth()
+			{
+				xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = showContent;
+				// xhr.open("GET", "http://localhost/priv/hello.php", true);
+				// CAN TAKE TWO MORE PARAMETERS -> Username and password
+				
+				// xhr.open("GET", "http://localhost/priv/hello.php", true, "guest", "guest123");
+				// UGLY, but we can do something better
+				
+				authstr = "guest:123";
+				encstr = btoa(authstr);
+				
+				xhr.setRequestHeader("Authorization", "BASIC " + encstr);
+				xhr.open("GET", "http://localhost/priv/hello.php", true);
+				
+				// (BASIC or DIGEST) followed by space
+				xhr.send();
+			}
+			
+			function showContent()
+			{
+				if(xhr.readyState == 4)
+				{
+					if(xhr.status == 401)
+					{
+						
+					}
+					else if(xhr.status == 200)
+					{
+						div = document.createElement("div");
+						div.innerHTML = xhr.responseText;
+						document.body.appendChild(div);
+					}
+				}
+			}
+		</script>
+		<style type="text/css">
+
+		</style>
+	</head>
+	<body>
+		<input type="button" onclick="getAuth()" value="makeCall" />
+	</body>
+</html>

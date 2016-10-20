@@ -1,0 +1,46 @@
+401
+	If a resource is restricted
+	Authentication required
+		Server can have some config files
+		Set up permissions in advance
+
+	Browser will automatically pop up a dialog
+		Username and password
+	Second request
+		In the header field called Authorization,
+			user and password are sent
+			user:password -> base64 encoded
+		Server will know this, decode the base64 encoded
+			Will unpack, and check the config files
+
+Authentication
+	BASIC
+		base64
+	DIGEST
+		Little more complicated
+		Will be done later on
+
+open the .htaccess file in the folder which is to have restricted access
+
+	AuthType BASIC
+	AuthName "CONFIDENTIAL INFO"
+		this is shown in the prompt window
+	AuthUserFile "some_path/apache/bin/pwd"
+		location of the file
+	Require valid-user
+
+Create the password file using
+	htpasswd.exe or htdigest.exe
+
+	htpasswd.exe -c pwd guest
+	guest123, say
+
+	pwd
+		guest:asker23yroisf23r0qoje2
+
+Once the username is valid, the browser caches the username and password and will include it in the subsequent requests' headers
+The moment the server sends a 401, the cache is cleaned
+
+How to tackle this?
+	Can the server do something about this?
+		Find the answers to these and a lot more, in the next episode of Dragon Ball Z
