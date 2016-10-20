@@ -1,0 +1,30 @@
+#outer
+{
+	border:2px solid red;
+	height: 400px;
+	width: 200px;
+}
+
+#innertop
+{
+	border: 1px dotted blue;
+	height: 300px;
+	width: 200px;
+}
+
+#innerbot
+{
+	border: 1px dotted blue;
+	height: 100px;
+	width: 200px;
+}
+
+input[type=button], input[type=text]
+{
+	width:100%;
+}
+
+#recon
+{
+	display:none;
+}

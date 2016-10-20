@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Request Manager</title>
+<script type="text/javascript" src="jquery_224.js"></script>
+<script type="text/javascript">
+function getData()
+{
+	$.post("xhrcache.php", showData);
+
+}
+
+function showData(msg)
+{
+	div = document.createElement("div");
+	div.innerHTML = msg;
+	document.body.appendChild(div);
+}
+</script>
+</head>
+<body>
+<input type="button" value="GET FILE" onclick="getData()"/>
+</body>
+</html>

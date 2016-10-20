@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>IFRAMES COMET</title>
+<script type="text/javascript">
+timer = null;
+obj =
+{
+	monitor: function()
+	{
+		//HTML5....for SSEs
+		ev = new EventSource("http://localhost/sse.php");
+		ev.addEventListener("myevent", obj.updateDiv,false);
+		ev.onerror = function() { alert("OOps..server closed");};
+	},
+	
+	updateDiv: function(event)
+	{
+		div = document.createElement("div");
+		div.innerHTML = event.data;
+		document.body.appendChild(div);
+	}
+	
+}
+</script>
+</head>
+<body>
+<input type="button" value="CLICK TO MONITOR" onclick="obj.monitor()"/><p>
+</body>
+</html>

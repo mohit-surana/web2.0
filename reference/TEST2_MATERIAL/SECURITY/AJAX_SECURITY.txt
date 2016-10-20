@@ -1,0 +1,34 @@
+Demo:
+------------
+1. SQL Injection (With reconnaissance)
+2. XSS and Http-only cookies (With reconnaissance)
+   Non-persistent (Reflected) and Persistent XSS
+3. Http Authentication - Basic and Digest. (Basic with XHR AJAX)
+   and details.
+ 
+1. Phishing 
+2. Session Hijacking
+3. SSL 
+   (Cross-domain call prb with specific SSL calls.
+    The following 2 urls are treated as different domains
+	 a. http://localhost
+	 b. https://localhost
+	)
+4. Poison Uploads (viruses getting uploaded blindly by a server)
+5. Keystroke capturing
+6. XHR Hijacking
+
+Solutions:
+-----------------------------
+1. Sanitize input perfectly. If it is not what you are expecting, don't take it.
+   Check for markup in the input values, especially <script> elements.
+   Escape "quote" characters so that they are literally used and not interpreted
+2. Do not run multiple queries in a single stroke.
+3. Give out very generic error messages to the client. Never send
+   database errors to the front end.
+4. Avoid eval() as far as possible. 
+5. Use Secure communication to avoid Man-in-the-middle attacks.
+   SSL + Basic Authentication if you can.
+6. Use Http-only cookies as far as possible.
+8. As users, don't click on links to get to your wanted sites.
+   Type them in the address bar.

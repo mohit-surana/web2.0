@@ -1,0 +1,42 @@
+Web Service vs Web Site:
+
+Web site is typically accessed by human beings.
+Web services are consumed by other programs.
+
+In a website, content delivered is typically html. (or converted to html)
+In a webservice, content delivered is always JSON or XML or both
+
+RESTful WEB SERVICE BEST PRACTICES
+--------------------------
+
+1. Offer both XML and JSON, unless the cost of offering both is staggering.
+   If both cannot be offered, offer JSON.
+
+2. The offer of either XML or JSON must be achieved by the consumer by 
+   merely switching between extensions.(.xml or .json)
+
+3. Favour POST for resource creation and PUT for resource updation.
+
+4. 	Resource naming is crucial and can have a telling impact on whether
+    your RESTful API is succesful or not.
+	
+5. Essentially, a RESTFul API ends up being simply a collection of URIs, 
+   HTTP calls to those URIs and some JSON and/or XML representations of resources.
+   
+6. Design the names with the "consumers" in mind.
+
+7. Typically you should return status, message (in case of error) and data
+   (for GET or POST requests) as response.
+   
+EXAMPLE:
+------------------
+1. GET a user details with ID=1.
+    URI: "http://localhost/ws.php?method=Fetch&ID=1
+    REST-API: http://localhost/MISC/get/user/1.json
+			 http://localhost/MISC/get/user/1.xml
+   
+2. DELETE a user details with ID=3.
+   URI: "http://localhost/ws.php?method=delete&ID=3
+   REST-API: http://localhost/MISC/delete/user/3
+
+   

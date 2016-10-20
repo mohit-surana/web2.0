@@ -1,0 +1,38 @@
+0. Server generates a public-private key combination. 
+1. Server generates a CSR (Certificate Service Request) using the
+   public/private key pair. The CSR will have the public key embedded
+   and will be sent to the Authority.   
+   
+2. (Remember the public and the private keys are mathematically related.
+   Typically, what is encoded using a public key can only be decrypted
+   using the private key and vice versa.)
+   
+3. The Certificate issuing authority uses the public key and the CSR
+   and creates a certificate. This costs money.
+   
+4. The server "installs" the certificate on its web server.
+5. When a browser looks at an "https" call from a client, 
+   it asks the server for a certificate. The server sends the certificate
+   and the public key. 
+   
+6. The browser will verify the certificate from its list of valid certifiers.
+   This is to make sure that the server is actually who he claims to be
+   and not a "Man in the middle".If it finds a valid authority, it uses the 
+   public key to create a "session key" and sends it to the server.
+	
+   If it does not find a valid authority, it issues a warning to the user
+   indicating the same and allows the user the choice to bail out.
+   If the user insists on continuing, the browser adds an exception
+   and proceeds to the next step.
+	
+7. The server uses its private key to decrypt the session key
+   and sends an acknowledgement that is encrypted using the session key.
+   
+8. Since the browser already has the session key, it can decrypt what 
+   the server sent. From here on, all communication happens using
+   the session key (which can be regenerated). 
+   This saves performance as opposed to using public-private key
+   encryption for every communication.
+   
+   X.509 type is a digital certificate that uses the standard X.509 PKI standards
+   for generation. ( to verify the authenticity of the server using public key)

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>IFRAMES COMET</title>
+<script type="text/javascript">
+timer = null;
+obj =
+{
+	xhr: new XMLHttpRequest(),
+	
+	monitor: function()
+	{
+		strlen = 0;
+		this.xhr.onreadystatechange = this.updateDiv;
+		this.xhr.open("GET", "http://localhost/revxhr.php", true);
+		this.xhr.send();
+	},
+	
+	updateDiv: function(str)
+	{
+		//We expect partial output from the server everytime
+		// until the server is forced to shut the script
+		// We will have readyState == 3 (partial output)
+		// and then finally readyState == 4, when we reconnect
+		if(this.readyState == 3 && this.status == 200)
+		{
+			str = this.responseText;
+				
+			newdiv = document.createElement("div");
+			newdiv.innerHTML = str.slice(strlen);
+			
+			
+			//CLear the responseText and hope all's good :)
+			if(this.responseText.indexOf("Fatal") == -1)
+			{
+				document.body.appendChild(newdiv);
+			}
+			strlen = str.length;
+			
+		}
+		
+		//Else, if readyState reaches 4, we need to reconnect
+		if(this.readyState == 4 && this.status == 200)
+		{
+			this.abort();
+			obj.monitor();
+		}
+	}
+	
+}
+</script>
+</head>
+<body>
+<input type="button" value="CLICK TO MONITOR" onclick="obj.monitor()"/><p>
+</body>
+</html>

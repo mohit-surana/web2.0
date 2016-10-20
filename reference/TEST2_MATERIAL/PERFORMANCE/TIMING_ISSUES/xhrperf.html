@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AJAX performance</title>
+<script type="text/javascript">
+function makeAjax()
+{
+	xhr1 = new XMLHttpRequest();
+	xhr2 = new XMLHttpRequest();
+	xhr3 = new XMLHttpRequest();
+
+	xhr1.onreadystatechange = foo1;
+	xhr2.onreadystatechange = foo2;
+	xhr3.onreadystatechange = foo3;
+	
+	xhr1.open("GET", "http://localhost/req1.php", true);
+	xhr2.open("GET", "http://localhost/req2.php", true);
+	
+	xhr1.send();
+	setTimeout(function(){ xhr2.send()},2000);
+
+}
+
+function foo1()
+{
+	if(xhr1.readyState == 4 && xhr1.status == 200)
+	{
+		alert(xhr1.responseText);
+	}
+}
+
+
+function foo2()
+{
+	if(xhr2.readyState == 4 && xhr2.status == 200)
+	{
+		alert(xhr2.responseText);
+		setTimeout(makeXHR3,3000);
+	}
+}
+
+function makeXHR3()
+{
+	xhr3.open("GET", "http://localhost/req3.php", true);
+	xhr3.send();
+
+}
+
+function foo3()
+{
+	if(xhr3.readyState == 4 && xhr3.status == 200)
+	{
+		alert(xhr3.responseText);
+	}
+}
+</script>
+</head>
+<body>
+<input type="button" value="GET DATA" onclick="makeAjax()"/>
+</body>
+</html>

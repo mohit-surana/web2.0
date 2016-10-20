@@ -1,0 +1,6 @@
+DirectoryIndex index.html
+Options -Indexes
+
+RewriteEngine On
+RewriteRule ^(get)/usn/([0-9]+)\.(xml|json) procusn.php?usn=$2&method=$1&type=$3 [L,NC]
+RewriteRule ^(update)/usn\.json update.php [L]

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HTTP AUTH</title>
+<script type="text/javascript">
+//If you want to setup some sort of protection for your files on the server,
+// then HTTP Authentication can be a very good choice. When files are protected
+// by user/password combination, the server (apache) has the following lines 
+// added to httpd.conf 
+
+/*
+<Directory "C:\Program Files\Apache Software Foundation\Apache2.2\htdocs\restricted">
+AuthType Basic
+AuthName "THIS IS CONFIDENTIAL"
+AuthUserFile "C:\Program Files\Apache Software Foundation\Apache2.2\bin\mypwd"
+Require valid-user	
+</Directory>
+*/
+
+// You can generate the password file(mypwd) using htpasswd.exe.
+// Now if a client asks for a file in the protected directory, the server
+// returns 401 as a status. This means that authentication is required.
+// In response, the browser pops up the user/password fields for the 
+// user to authenticate himself. If the user/passwd is correct access is
+// allowed, otherwise server returns another 401. Once correct,Browsers cache the
+// user/password combination. The user/passwd dialog is not shown until
+// the server returns another 401.
+callObj = 
+{
+	makeCall: function()
+	{
+		xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = callObj.showOutput;
+		
+		// This will prevent the default password dialog.
+		// Also, once the response is received,
+		// the browser will cache the user/passwd combination.
+		// The dialog is not shown again.
+		
+		//xhr.open("GET","http://localhost/restricted/priv.txt", true,"guest","guest");
+		
+		
+		//Ask for password each and everytime I make a
+		// a request. For this, use the "Authorization" header.
+		user = document.getElementById("usr").value;
+		pwd = document.getElementById("pwd").value;
+		
+		//Need to encode base64 ourselves
+		strtoserver = user + ":" + pwd;
+		encStr = btoa(strtoserver);
+		alert(encStr);
+		
+		//Assuming "restricted" was a protected directory on the server.
+		xhr.open("GET","http://localhost/CONF/priv.txt", true);
+		
+		// Set the Authorization header. This is crucial.
+		// We use BASIC authentication. If you use DIGEST,
+		// the process gets very complicated.
+		// For BASIC, the username/password is sent as a base64 encoded
+		// string. See above(lines 49-50). The format is "usr:passwd". 
+		// The combined string is base64 encoded. However this is not 
+		// safe because it can easily be read using a base64 decoder.
+		// Hence,normal best practice in the industry is BASIC + SSL.
+		// By setting the "Authorization" header, the user/passwd
+		// combination is required for every AJAX request.
+		// The designer should decide whether he wants the user
+		// to authenticate himself on every call or not.
+		
+		// So the header field has the following format
+		// "Authorization:BASIC e4ffabdd445="
+		xhr.setRequestHeader("Authorization","BASIC " + encStr);
+		
+		xhr.send();
+	},
+	
+	
+	showOutput: function()
+	{
+		if(xhr.readyState == 4 && xhr.status == 200)
+		{
+			div = document.createElement("div");
+			div.innerHTML = xhr.responseText;
+			
+			document.body.appendChild(div);
+	
+		}
+	},
+	
+	sendCall: function()
+	{
+		alert("The AJAX call you are about to make needs authentication");
+		
+		//Create user and password fields 
+		// and wait for ip
+		ip=document.createElement("input");
+		pwd = document.createElement("input");
+		
+		ip.type = "text";
+		pwd.type = "password";
+		
+		ip.id= "usr";
+		pwd.id="pwd";
+		
+		document.body.appendChild(ip);
+		para = document.createElement("p");
+		document.body.appendChild(para);
+		document.body.appendChild(pwd);
+		//Make the AJAX call when the field loses focus.
+		pwd.onblur = callObj.makeCall;
+	}
+}
+</script>
+</head>
+<body onload="callObj.sendCall()">
+</body>
+</html>
