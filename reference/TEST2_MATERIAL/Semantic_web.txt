@@ -1,0 +1,48 @@
+The Syntactic Web:
+------------------------------------------------
+Most of the Web Today is syntactic. That is, information presentation is carried out
+by Computers. But the interpretation and identification of relevant information is 
+delegated to human beings. The interpretation part is demanding!!
+
+The question is : Why can't computers do the "interpretation" job too?
+Some of the problems with the Syntactic Web are:
+
+0. HTML does not attach any semantics to its tags. It is "format" centric.
+   ( An anchor tag <a> only tells the reader that the content is a hyperlink.
+     But nothing else is told about the anchor)
+1. A lot of web pages do not contain information about themselves (meta data).
+2. Low "recall precisions". Pages with matching words may be returned by a good
+   search engine, but the words may just be mentioned "in passing" by the web pages
+   and hence the match is really not "strong".   
+3. Search results are sensitive to vocabularies used. 
+   For instance the search for "TCP/IP" and "Protocol" (together), may end up skipping
+   all those pages which describe TCP/IP as a "Standard". 
+4. Search results appear as a list of references to individual pages. However many of
+   these may belong to the same "Web Site". Getting the complete set of relevant entries
+   may be cumbersome.
+   
+   
+   
+The Semantic Web:
+------------------------------------------------
+The Semantic Web aims to solve the above problems. That is, Computers will try and
+"interpret" information to some extent before presenting it to the end user.
+
+For instance, in the Syntactic Web, a search for "Springbok" may return all pages
+about the Antelope and also about the South Africans (who are called Springboks).
+In the Semantic Web, the search engine may be able to interpret some of these results
+and categorise them into two groups and present relevant material to the end user.
+
+According to the W3C, 
+"The Semantic Web provides a common framework that allows data to be shared and reused across application, enterprise, and community boundaries". 
+
+The aim is to restructure data available on the Web so that we can accomplish the above
+tasks effectively.
+
+
+The Main Components (themes) of the Semantic Web are:
+1. Concepts - Meta data, Ontologies, Web Services
+2. Applications - Semantic Desktop Apps
+3. Technologies - Tools for Ontology development
+
+

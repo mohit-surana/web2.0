@@ -1,0 +1,63 @@
+List of Topics:
+-----------------------------
+REVERSE AJAX:
+Need for Reverse AJAX - typical use cases.
+Http Streaming vs Long Poll, timing diagrams.
+COMET  - using Hidden Frames - the need for heartbeat() function here.
+       - using XHR (the use of readyState == 3)
+	   - using server-sent events (SSE).
+	   - The advantages of using SSEs.
+	   - The problem with simultaneous requests (http 1.1 restriction)due to COMET calls.
+	   
+AJAX - PERFORMANCE:  
+The "2 simultaneous requests only" limitation with http 1.1.
+The reason for the limitation.
+Impact on performance on client and server sides - possible workarounds
+  - Maintaining priority Queues, 
+  - increasing connections at browser end
+  - using sub-domains.
+  - using separate servers with Access-control headers.
+  - packing requests into one.
+
+Status code 200 does not mean all is ok. why??
+Race conditions on the server.
+Use of the "HEAD" call.
+Use of Compression techniques. TTFB, TTLB. Minimising TTFB.
+Caching: The use of Cache-control and Expires headers. Difference between the two.
+GET vs POST requests to save performance.
+Techniques to reduce size of markup/javascript being transferred.
+Minifying code. 
+Using external Javascripts.
+Misuse of the "src" attribute in <img> tags
+
+WEB SERVICES:
+Web Services vs Web Sites.
+Properties of a Web Service - discoverable, self-describing etc.
+Types of Web Services - RESTful and SOAP-based.
+How SOAP-based services work. UDDI, SOAP and WSDL.
+REST - meaning and architecture.
+REST constraints.
+RESTful APIs.
+Standard guidelines for designing RESTful services.
+JSON vs XML as data choice.
+RESTful vs SOAP based services - Advantages and disadvantages.
+
+SECURITY:
+Restricting data access using HTTP Authentication.
+The configuration directives in Apache.
+The http status 401.
+Types of Web attacks-
+	Phishing
+	Man-in-the-middle, session-hijacking.
+	SQL Injection.
+	Cross Site Scripting - XSS. Variations (Permanent, reflection)
+	CSRF - Cross Site Request Forgery.
+	Difference between XSS and CSRF.
+	General countermeasures/precautions for protection.
+	The "Heartbleed" vulnerability
+	(SSL/https excluded for now)
+
+
+SEMATIC WEB:
+Differences between Syntactic Web and Semantic Web.
+Basic Working of the Semantic Web.
