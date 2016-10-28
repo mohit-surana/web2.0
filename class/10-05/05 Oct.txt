@@ -1,17 +1,29 @@
 Why can't we call the services directly?
 	Cross domain, you see!
 
-## TODO NOTES FOR TODAY
+SOAP (Simple Object Access Protocol)
+	- XML based protocol
+	- Need not necessarily happen over HTTP
+	- Platform independent
+	
+	- UDDI (Universal Description, Discovery and Integration)
+		It’s an XML based standard for describing, finding, and publishing web services
+	- WSDL (Web service Description Language)
+		It’s an is an XML-based language for describing web services, how to access them, what functionalities they’re providing, etc
 
-SOAP based
-	Simple Object Access Protocol
-	xml based protocol
+	- Server can be written in any language (JAVA, C, C++, etc)
+	- Since it’s possible that web server and client server are written in different languages, the web server serializes the object it needs to send and then sends it to the server.
+	- The server then deserializes it and uses it
+	- For serializing and deserializing, there are stubs that are attached to the server and web server.
 
 
+	- Naming service: Locating an object over the web using a name
+		The client server can directly invoke the objects on the web server
+		How it works:
+			- Using UDDI, the client server gets the name of the object it requires
+			- Using WSDL, it locates the object by its name and obtains a handle on the object
+			- Using the handle, it invokes the object on the web server
 
-UDDI
-	Universal Description Discovery and Integration
-WSDL
 
 publish
 honour
@@ -19,7 +31,3 @@ naming service
 
 rpc
 rmi
-
-ws.class
-
-NOTE: NOTES WILL BE UPDATED LATER ON! (wasn't listening in class)
