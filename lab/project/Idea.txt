@@ -1,0 +1,31 @@
+Topic:
+	Twitter
+
+Framework:
+	Django
+
+Features:
+	Register new user
+		Email verification?
+	Login functionality with password
+		Forgot password?
+	User database
+	Tweet database
+	News Feed
+		Recent
+		Top
+		Retweet?
+	Follower-following database
+	Profile
+		Pic
+			Upload
+		Details
+		Tweets
+			Create
+			Delete
+		Followers
+		Following
+	Settings
+		Modify details
+		Change password?
+	News feed as mail?

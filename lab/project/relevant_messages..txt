@@ -1,0 +1,39 @@
+User Profile
+	_uid_
+	name
+	handle
+	emailId
+	dob
+	gender
+	img/img_url?
+	joinedOn
+	status?
+
+User Login Credentials
+	_uid_
+	pwd
+
+Tweets
+	_uid_
+	_tid_
+	tweet char(140)
+	timestamp
+
+Follow
+	_follower_uid_
+	_followed_uid_
+
+Have a directory called profilePics
+And each person's image is handle.jpg
+
+Front end pure bootstrap
+Backend with ajax and django
+
+Start on the bootstrap for them blueprints
+Since you haven't used bootstrap before I recommend looking at some tutorials
+Because there's a web interface as well as a Python interface
+The thing with a django project is that the front end and back end are not mutually exclusive
+They're closely integrated
+With php you can just make get and post calls from the front end
+But with django you can also do that
+But there are better ways
