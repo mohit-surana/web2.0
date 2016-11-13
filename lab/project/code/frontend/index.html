@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Twitter</title>
+		<link rel="stylesheet" href="http://localhost/bootstrap/css/bootstrap.min.css" type="text/css" />
+		<link rel="stylesheet" href="style.css" type="text/css" />
+		<link rel="shortcut icon" href="img/favicon.ico" />
+		<script type="text/javascript" src="http://localhost/jquery.js"></script>
+		<script type="text/javascript" src="main.js"></script>
+		<script type="text/javascript">
+			$(document).ready(init);
+		</script>
+	</head>
+	<body class="full">
+		<div class = "container-fluid">
+			<div id="splash" class="col-xs-6 well">
+				<h1>What's happening?</h1>
+				<p class="button">
+					<a id="login" class = "btn btn-primary btn-lg" role = "button">Login</a>
+					<a id="signup" class = "btn btn-primary btn-lg right-button" role = "button" href="registration/index.html">Sign up</a>
+				</p>
+			</div>
+			<div id="signin" class="row" style="display: none;">
+		        <div class="col-sm-6 col-md-4 col-md-offset-4">
+		            <div class="account-wall">
+		                <form class="form-signin">
+		                <input type="text" class="form-control" placeholder="Email" required autofocus>
+		                <input type="password" class="form-control" placeholder="Password" required>
+		                <button class="btn btn-lg btn-primary btn-block" type="submit">
+		                    Sign in</button>
+		                <label class="checkbox pull-left">
+		                    <input type="checkbox" value="remember-me">
+		                    Remember me
+		                </label>
+		                <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+						<a href="registration/index.html" class="text-center new-account">Create an account </a>
+		                </form>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+	</body>
+</html>
