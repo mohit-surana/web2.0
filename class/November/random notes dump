@@ -1,0 +1,96 @@
+Emails
+	Makes it very easy to send mails
+		$.email.attrib = x; etc
+Form
+	view uses this helper class to create a form
+File
+
+
+// /controllers/BookController.php
+<?php
+	class BookController extends CI_Controller
+	{
+		public function __construct()
+		{
+			parent::__construct();
+			$this->load->helper('form');
+		}
+		
+		public function index()
+		{
+			$this->load->view('BookView');
+		}
+	}
+?>
+
+
+// /views/BookView.php
+<!-- Can use markup if we want -->
+<body>
+	<?php
+		echo form_open('http://localhost/CI/index.php/BookSearch', array('method'=>'GET' /*, as many properties as you want */));
+		echo form_label('ISBN');
+		echo form_input(array('type'=>'text', 'name'=>'isbn'));
+		echo "<br/>"
+		echo form_submit(array('value'=>'Get Book'));
+		echo form_close();
+	?>
+</body>
+
+
+// /controllers/BookSearch.php
+<?php
+	class BookSearch extends CI_Controller
+	{
+		public function __construct()
+		{
+			parent::__construct();
+			$this->load->model('bookmodel');
+		}
+		
+		public function fetchBooks($isbn)
+		{
+			$isbn = $this->input->get('isbn');
+			// input has the form data
+			
+			// Call the model to get the data
+			$data['bookresults'] = $this->bookmodel->getbooks($isbn);
+			
+			$this->load->view('showresults', $data);
+		}
+	}
+?>
+
+// /model/BookModel.php
+<?php
+	class BookModel extends CI_Model
+	{
+		public function __construct()
+		{
+			$this->load->database();
+		}
+		
+		public function getbooks($isbn)
+		{
+			$query_res = $this->db->get_where('BOOKS', array('ISBN'=>$isbn));
+			return $query_res->result_array();
+		}
+	}
+?>
+
+
+// /config/database.php
+	$db['default'] = {
+		username, password, database, dbdriver, etc 
+	}
+
+
+// /views/ShowResults.php
+<body>
+	<?php
+		echo "<h2>" . $bookresult['PRICE'] . " ..." . $bookresult['AUTHOR'] . " ..." . $bookresult['TITLE'] . " ..." . $bookresult['ISBN'] . "</h2>";
+	?>
+</body>
+
+
+

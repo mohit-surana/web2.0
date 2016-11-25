@@ -1,0 +1,69 @@
+Web 2.0
+	Web of documents
+		HTML
+		[d1]--hyperlink--[d2]
+	Presentation part is handled by the machine
+	Interpretation part is left to you
+		Eg. d1 and d2 both on cylinders
+
+Web 3.0
+	Consumption of data must be done by machines instead of humans
+
+Web 4.0
+
+Problems:
+	HTML is format centric
+		Very difficult to attach meaning to it
+	Lack of Meta data
+		meta, content and keywords
+		Might be fake (used by ads)
+	Loose recall precision
+	Vocabulary problem
+	People not complying
+
+
+--
+
+ADD NOTES
+
+RSS full form
+	RDF Site Summary
+
+--
+
+RDF Schema
+	Triples
+		Subject	Predicate	Object
+		Srik	teaches		web
+
+	<Description about="Srik">
+		<teaches>web</teaches>
+		<likes>sweets</likes>
+	</Description>
+
+Taxonomy
+	Hierarchical only
+		eg. KPCOFGS
+
+Ontology
+	No need for hierarchy
+	cardinality
+	etc attrib
+
+OWL Schema
+	Web Ontology Language
+
+--
+
+There are specific databases to store RDFs
+	stores triples
+	SPARQL
+		SPARQL Processor and RDF Query Language
+		Outputs
+			json or xml
+			So that web services can call them easily
+
+	Apache Jena
+		Java based engine
+	Sesame / Eclipse4RDF
+	Redland

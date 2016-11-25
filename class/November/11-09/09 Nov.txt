@@ -1,0 +1,117 @@
+Web Application Frameworks
+	or
+Web Frameworks (Server Side)
+
+Reasons:
+	Re use code
+		faster dev
+	Authentication
+	Separation of concerns
+		Eg.	db operations
+			GUI
+			Security
+			Logic
+		Parallel work can happen
+		Easier debugging and testing
+		Eg. MVC Architecture
+			Model
+				data + data logic
+			View
+				presentation / gui
+			Controller
+				connects view and model
+			Model is separated from controller
+			Because the db may be in multiple flavours
+			By changing db, can't change all calls
+				Hence we use something like an adapter
+
+			Model is on the hard disk
+		ORMs
+			Object Relational Mapping
+			Because we need consistency and synchronization
+				Map db with the memory
+			Faster than using an adapter layer
+			
+			Transparent or orthogonal persistence
+
+Frameworks classified on underlying technology
+ASP.NET
+	C#
+Python
+	Django
+	Flask
+PHP
+	CodeIgniter
+	CakePHP
+Java
+	Spring
+	JBoss Seam
+Ruby
+	Rails
+Javascript
+	MeanIO
+
+--
+
+Choice of framework:
+	Language - ease of learning, fast development
+	Stability - new releases + documentation + APIs + community
+	Licensing
+	Technology - is it relevant?
+	Open source
+		You can also extend
+	Performance
+	Other features
+
+--
+
+Push model of MVC
+
+?? Apache/htdocs
+Wamp / www
+xampp / htdocs
+	Create a folder called ci
+	Copy zip file to that folder
+	Extract it there
+	Navigate to that folder
+		user_guide folder
+			Very good guide
+		system folder
+			Don't touch
+			To modify / extend functionality
+		application folder
+			All work will be done here.
+				cache
+					used by framework to cache repeatedly requests data
+					can be enabled or disabled
+				config
+					config files for framework, what db etc
+				controllers
+					code to link view and model
+				core
+					don't modify
+				helpers
+					not used right now
+				hooks
+					used to extend functionality
+				language
+					language support
+				libraries
+				logs
+				models
+				third_party
+				views
+	Controller
+		Pushes model into the view
+	
+	From the front end, we invoke the controller
+	The router decides which php to execute(url to php mapping)
+	Router will check the local cache
+		If found, take and render it back
+		Else, invoke model, pluck data and render it back
+	View
+
+Config 
+	config.php
+	
+	Continued on TOM's toplap

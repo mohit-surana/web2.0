@@ -1,0 +1,140 @@
+If we make a HTTPS call to a server,
+	we ask for the certificate
+Server sends certificate & public key
+Browser verifies certificate (against standard certificate verifiers)
+.
+.	REFER notes for 20th October
+.
+Session key
+
+--
+
+Config details @ openssl.conf
+
+Using openssl, we try to generate a CSR (certificate service request)
+	openssl ------------------------------- (##UPDATE)
+
+YOUR name = domain name usually
+
+Using rsa, generate a key file
+
+x509 - one of the popular standards for generating digital certificates
+
+Only issue now is that the certificate is self signed
+
+Now mention the location of the certificate in the config
+
+httpd.conf
+	Uncomment this:
+		LoadModule ssl_module modules/mod_ssl.so
+	Uncomment this:
+		Include conf/extra/httpd-ssl.conf
+
+
+httpd-ssl.conf
+	Listen 443 (the port it will listen to)
+	<VirtualHost _default_:443>
+		# Equivalent of the htdocs
+		SSLCertificateFile "__path__to__certificate__.cert"
+
+		SSLCertificateKeyFile "__path__to__key__file__.key"
+
+Try connecting via https and look at the certificate
+
+--
+
+XHR Hijacking
+	Want to flick lot of form data, say personal info / credit card details
+
+	The script that is returned tries to hijack the XHR
+	XMLHttpRequest is a constructor function
+	The code will try to modify that
+		oldxhr = XMLHttpRequest
+		XMLHttpRequest = function() {
+			// H4CK3R CODE
+		};
+		XMLHttpRequest = oldxhr; // Something like this
+
+--
+
+XSS
+	Permanent
+		Push script into db of the server
+		Everyone affected
+	Reflected
+		Only affects the client visiting vulnerable site
+	DOM-Based
+		No server involvement
+		Imagine a page with a form
+		The code will read the location of the URL, get the query string and fill up the fields in the form
+		Hacker might put some script in the query string
+
+		Protection:
+			Web browsers will not fire scripts that have been added using document.body.appendChild(script)
+
+Clickjacking
+	Hacker's frame sits behind the real one
+	Clicks will fire events on them as well
+
+--
+
+Frameworks:
+	Ruby on Rails
+	Django
+	CakePHP
+	Flask
+	MeanIO?###
+	CodeIgniter -> we shall focus on this
+
+--
+
+From 08 October:
+
+Question:
+
+	Only two simultaneous connections are allowed to a particular domain
+	Client side queue
+
+	Client queue
+		Periodic refresh, predictive fetch and NOW we got a button click!
+
+	Button will be waiting for long
+		But we want fined grained control over the queue
+
+Active Queue
+[ ] [ ]
+
+Pending Queue
+[ ] [ ] [ ] [ ] [ ] [ ] [ ]
+
+Pushed from active queue to browser queue
+And new ones in pending queue
+
+Keep pending queue sorted based on priority
+If something has waited for a longer time, increase priority
+
+Have a manager class, queue class
+Client that bombards with 100s of requests
+And will test!
+
+--
+
+Pending Queue
+	get()
+	put(req)
+	peek()
+	remove(?)
+	size()
+	prioritize()
+		sort()
+
+Manager
+
+Important parameters
+	method
+	url
+	priority
+	data
+	dependency
+	age
+	xhr

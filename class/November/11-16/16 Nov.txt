@@ -1,0 +1,89 @@
+Libraries vs Helpers?
+
+Codeigniter has helpers for
+	Captcha
+	Form validation
+
+Eg
+
+// in controllers
+<?php
+	class MyCaptcha extends CI_Controller
+	{
+		public function __construct()
+		{
+			parent::__construct();
+			// Don't forget this or else everything will flop :P
+
+			// Load the helper to generate the Captcha
+			$this->load->helper('captcha');
+			// This internally uses gd (image processing library)
+		}
+
+		public function index()
+		{
+			$this->load->view('ShowForm');
+		}
+	}
+?>
+
+// in views - ShowForm.php
+<?php
+	$valds = array(
+		'img_path'	=>	'./captcha/',
+		'img_url'	=>	'http://localhost/CI/captcha/captcha/', // Where it picks it from
+		'img_width'	=>	200,
+		'img_height'=>	200,
+	);
+
+	$cap = create_captcha($vals);
+	echo $cap['image'];
+	echo '<br/>';
+	// echo $cap['word'];
+	$_SESSION['capt_word'] = $cap['word'];
+?>
+
+<form action="http://localhost/CI/index.php/ValCapt" method="POST">
+	<!-- Input and submit -->
+</form>
+
+// ValCapt
+// in controllers
+<?php
+	class ValCapt extends CI_Controller
+	{
+		public function __construct()
+		{
+			parent::__construct();
+			// Load the helper to validate forms
+			$this->load->helper('form_validation');
+
+			session_start();
+		}
+
+		public function index()
+		{
+			$this->form_validation->set_rules('fieldNameSetByClient', 'nameOfOurChoice', 'required');
+			// Add many lines like this to check for rules
+
+			// Finally validate all at once
+			if($this->form_validation->run() == false)
+			{
+				echo validation_errors();
+			}
+			else
+			{
+				// Captcha given but we need to check if it matches
+				$capt = $this->input->post('capt');
+				if(strcasecmp($capt, $_SESSION['capt_word']) == 0)
+				{
+					echo "Captcha Match";
+				}
+				else
+				{
+					echo "FAIL!";
+				}
+			}
+		}
+	}
+?>

@@ -1,0 +1,92 @@
+Frameworks
+	Examples:
+		Flask
+		Django
+		Ruby on Rails
+		Angular JS
+		CodeIgniter
+
+Web application or web frameworks (server side)
+
+Why?
+	- reuse code (fast development)
+	- authentication
+	- separation of concern (parallel development, easier debugging)
+		* database operations
+		* GUI
+		* security
+		* logic
+		MVC => Model <-||-> Controller <--> View
+			adapter (||) - convert language specific code to a standard code
+	- ORM - Object (programming) Relational (RDBMS) Mapping
+		inbuilt, provided by most frameworks
+	- Concurrency
+
+Popular Framework examples:
+	1. ASP.net (C#)
+	2. Django, Flask (Python)
+	3. CodeIgniter, CakePHP (PHP)
+	4. Spring, JBoss Seam (Java)
+	5. Rails (Ruby)
+	6. Mean IO [uses nodeJS, angularJS] (Javascript)
+
+Choice of frameworks:
+	- language		- ease of learning, fast development
+	- stability		- new releases + documentation + API + community
+	- technology	- relevance (should not be some legacy thing)
+	- open source
+	- performance
+	- licensing
+	- other features
+
+Transparent or orthogonal persistence
+	ORM layer for mapping memory object and database (ORM better than adapter layer)
+
+
+Notes from TOM's laptop
+---
+
+config.php
+	$config['base_url'] = 'localhost/CI/';
+	// Closing slash is crucial
+
+	Line 468
+	$config['compress_output'] = FALSE;
+	// Compress all outputs by default
+
+	$config['global_xss_filtering'] = FALSE;
+	// Shield from xss attacks
+
+	$config['#####'] = FALSE;
+	// Shield from CSRF
+
+	$config['cookie_httponly'] = FALSE;
+	// Cookies via http only (not script)
+
+
+## Write stuff about index.php
+	Responsible for routing
+
+http://localhost/CI/index.php/controller/function/param1/param2
+
+routes.php
+	$route['default_controller'] = 'welcome';
+
+Model View Controller in CI
+	some diagram
+	Mymsg.php in controllers
+	greetview.php in views
+
+URL rewriting
+	in config/routes.php
+		$route['get/(:any)'] = 'Mymsg/greet/$1';
+		first matching rule is taken
+
+in PHP:
+	all constructors have the same name __construct()
+	current object: $this
+
+general helper classes in CI:
+	emails
+	form
+	file
