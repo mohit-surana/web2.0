@@ -1,0 +1,116 @@
+Web Application Frameworks:
+	- Definition: A framework enables writing simplified syntax that generates
+	  serverside code to deal with request and responses.
+	  
+	- Main goals:
+	  i) Generate dynamic HTML using data from datastores.
+	  ii) Allow "function-based" processing. Normally a single script on 
+	      the server side handles many URLs. Or we may have multiple scripts.
+		  But frameworks allow different functions to be called for diff urls.
+	  iii) Allow ORM - Object-Relational Mapping.
+	       a) What is an Object Model?
+		   b) What is a Relational Model?
+		   c) How to combine?
+		   d) What is Transparent Persistence (TP)? 
+		      TP vs Call Interfaces
+			  (A call interface is typically an adapter layer that converts
+			  generic db calls to vendor-specific calls. Ex: the JDBC drivers)
+					  
+		   e) How ORM works. Advantages?
+		      - Faster Applications (performance)
+			  - Abstraction between diff database engines
+		   f) When should you use an ORM setup?
+		   
+	   iv) Session management
+	   v) Authentication
+	   vi) Web Security 
+	  
+Classification of Frameworks: Based on underlying technology
+----------------------------------------------------------------------------
+Microsoft: ASP.NET
+Java-based: JBoss Seam, Spring MVC
+Python-based: Django, Flask
+PHP-based: CakePHP, CodeIgniter
+Ruby-based: Rails
+Javascript: Mean.IO (uses angular, node.js)
+
+Most of them employ the MVC Architecture.
+	   a) What is the MVC architecture? (Model, View, Controller)
+	   b) Advantages of using MVC.
+	   c) Two models - Push (action based) and Pull (Component-based)
+	      - Django, CodeIgniter, Rails, CakePHP are all push-based
+		    That is, the Model/Controller pushes data into the view.
+			
+		  - JBoss and Spring are pull-based.
+		    That is, the View pulls data from the Model/Controller.
+
+		  
+Criteria for Selecting Frameworks:
+1. Productivity - Pace of development, ease of maintaining and enhancing code.
+				- Does the framework advocate "Best Development Practices"?
+				- Opinionated vs Non-opinionated.
+				  (that is, the framework suggests certain "best" ways to implement
+				   certain functionalities. If you follow a different approach
+				   then you may not get optimum performance. Such frameworks
+				   are called "Opinionated")
+				   
+				- Inbuilt Testing Frameworks? 
+				
+2. Learning Curve - familiarity with underlying language, documentation, APIs,
+                    Size of the community working with it.
+3. Framework purpose - Why the framework came into place? 
+						Ex: Django was developed for Newspaper site and is especially
+						suited for blog-sites. Flask is ideal for embedded architectures
+4. Performance: Speed of the framework.
+5. Scalability: Vertical vs Horizontal Scaling.
+6. Security Features - What inbuilt features does the Framework provide?
+7. Other important features - Emails, user management, caching, Web Services etc
+
+Main features of Important Frameworks:
+====================================================================
+DJANGO:
+  - Free, Open Source, Python-based,
+  - MVC (push-based)
+  - ORM support
+  - Caching.
+  - Inbuilt Serialization classes to convert from XML/JSON to Model "instances".
+  - Authentication
+  - Automatic RSS feed generation
+  - Inbuilt Protection against ALL basic Web Attacks
+  - etc :)
+  
+CAKEPHP:
+  - Inbuilt ORM support
+  - MVC(push-based)
+  - Inbuilt Testing Framework
+  - Caching
+  - Emails
+  - Authentication
+  - Web Services
+  - Security
+  - etc
+  
+CODEIGNITER:
+ - MVC based (push-based)
+ - Support for attaching third-party ORMs
+ - Emails
+ - Web Security
+ - Authentication
+ - Caching
+ - etc:
+ 
+Regarding CodeIgniter:
+
+You need to know:
+ - How to code a simple Controller
+ - How to code a simple Model
+ - How to code a simple View
+ - How to call a model from a controller
+ - How to call a view from a controller
+ - The default method in the Controller
+ - Where you will provide the URL mappings.
+ - How the URL is mapped into a function call inside the Controller
+
+ 
+  
+  
