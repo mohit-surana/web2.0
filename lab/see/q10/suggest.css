@@ -1,0 +1,21 @@
+.found
+{
+	font-style: normal;
+	background-color: white;
+}
+
+.notfound
+{
+	font-style: italic;
+	background-color: lightyellow;
+}
+
+.suggest
+{
+	background-color: #eeeeee;
+}
+
+.suggest:hover
+{
+	background-color: #64aaff;
+}

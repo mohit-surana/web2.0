@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Suggestions Sub-Throttle</title>
+	<link rel="stylesheet" type="text/css" href="suggest.css" />
+</head>
+<body>
+	<h2>Find a Player ;)</h2>
+	<div>
+		<table>
+			<tr>
+				<td>Name: </td>
+				<td><input type="text" id="nameBox" size="20" /></td>
+			</tr>
+			<tr>
+				<td>Favourite Player: </td>
+				<td>
+					<!--
+						You can use datalist and make this get populated instead
+						BUT, you can't do fancy formatting or tooltips etc.
+				 	-->
+					<input type="text" id="searchBox" size="20" list="playerList"/>
+					<datalist id="playerList">
+						<option value="A"/>
+						<option value="B"/>
+						<option value="C"/>
+						<option value="D"/>
+						<option value="E"/>
+						<option value="F"/>
+					</datalist>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><div id="searchResults"></div></td>
+			</tr>
+		</table>
+	</div>
+
+	<script type="text/javascript" src="suggest.js"> </script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Periodic Refresh with Exponential Fallback</title>
+	<script>
+		function init()
+		{
+			ctr = 2
+			xhr = new XMLHttpRequest();
+			seats = document.getElementById("seatsLeft");
+			flag = setTimeout(refreshSeats, ctr * 500);
+		}
+
+		function refreshSeats()
+		{
+			xhr.onreadystatechange = updateSeats;
+			xhr.timeout = 6000;
+			xhr.ontimeout = requestServer;
+			xhr.open("GET", "seats.in", true);
+			xhr.send();
+		}
+
+		function requestServer()
+		{
+			xhr.onreadystatechange = updateSeats;
+			xhr.open("GET", "fetchSeats.php", true);
+			xhr.send();
+			ctr = 1;
+		}
+
+		function updateSeats()
+		{
+			if(this.readyState == 4 && this.status == 200)
+			{
+				response = this.responseText;
+				seats.innerHTML = "";
+				var seatsLeft = response.split(";");
+				for(var i = 0; i<seatsLeft.length; ++i)
+				{
+					td = document.createElement("td");
+					td.innerHTML = seatsLeft[i];
+					seats.appendChild(td);
+				}
+				ctr = 1;
+				flag = setTimeout(refreshSeats, ctr * 500);
+				this.abort();
+			}
+			else if(this.readyState == 4 && this.status != 200)
+			{
+				ctr *= 2;
+				flag = setTimeout(refreshSeats, ctr * 500);
+				this.abort();
+			}
+		}
+
+		function selectionResult(selected)
+		{
+			if(selected == 1)
+			{
+				alert('Seat reserved!');
+			}
+			else
+			{
+				alert('Seats over! Choose something else!');
+				document.getElementById("submitButton").disabled = "false";
+			}
+		}
+
+		function disableButton()
+		{
+			document.getElementById("submitButton").disabled = "true";
+		}
+	</script>
+	<style>
+		table
+		{
+			height: 20%;
+			width: 80%;
+			position: relative;
+			left: 10%;
+		}
+		th, td
+		{
+			border: 1px solid black;
+			border-collapse: collapse;
+			font-size: 24px;
+			color: #ec1337;
+			text-align: center;
+		}
+		label
+		{
+			font-size: 18px;
+			display: block;
+			padding: 6px;
+		}
+		input, select
+		{
+			position: absolute;
+			left: 200px;
+		}
+	</style>
+</head>
+<body onload="init()">
+	<div>
+		<table>
+			<tr>
+				<th colspan="4">Seat Availability</th>
+			</tr>
+			<tr>
+				<th>PESU ECE</th>
+				<th>PESU CSE</th>
+				<th>RVCE ECE</th>
+				<th>RVCE CSE</th>
+			</tr>
+			<tr id="seatsLeft">
+			</tr>
+		</table>
+	</div>
+	<hr /> <br />
+	<div>
+		<form method="POST" action="chooseSeat.php" target="if"  onsubmit="disableButton()">
+			<label>Hall Ticket Number: <input type="text" name="hall_ticket" required/> </label>
+			<label>College:
+				<select name="college">
+					<option value="0">PESU</option>
+					<option value="1">RVCE</option>
+				</select>
+			</label>
+			<label>Department:
+				<select name="dept">
+					<option value="0">ECE</option>
+					<option value="1">CSE</option>
+				</select>
+			</label>
+			<label><input type="submit" id="submitButton" value="Choose seat"/></label>
+		</form>
+		<iframe name="if" style="display: none">
+		</iframe>
+	</div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Photo Slideshow</title>
+	<style type="text/css">
+		div, img
+		{
+			width: 400px;
+			height: 600px;
+		}
+	</style>
+	<script src="http://localhost/jquery.js"></script>
+	<script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
+	<script type="text/javascript">
+		$(document).ready(init);
+		function init()
+		{
+			imgno = 1;
+			jdiv = $('.container');
+			jimg = $('#image');
+			// $('#butt').offet({top: 650, left: 100});
+			check();
+		}
+		function check()
+		{
+			// jdiv.show('scale', {}, 1000);
+			jdiv.css('display', 'none');
+			jdiv.slideToggle('slow');
+			jimg.attr('src', imgno + '.jpg');
+			if (imgno == 1)
+				$('#prev').css('display', 'none');
+			else if (imgno == 3)
+				$('#next').css('display', 'none');
+			else
+			{
+				$('#prev').css('display', 'inline');
+				$('#next').css('display', 'inline');
+			}
+		}
+		function previous()
+		{
+			imgno -= 1;
+			check();
+		}
+		function next()
+		{
+			imgno += 1;
+			check();
+		}
+	</script>
+</head>
+<body>
+	<div class="container">
+		<img id="image" />
+	</div>
+	<div id="butt">
+		<input type="button" onclick="previous()" value="Previous" id="prev" />
+		<input type="button" onclick="next()" value="Next" id="next" />
+	</div>
+</body>
+</html>

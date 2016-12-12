@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>CRUD Lab</title>
+		<script type="text/javascript">
+			function init()
+			{
+				xhr = new XMLHttpRequest();
+				usn = document.getElementById("usn");
+				sname = document.getElementById("sname");
+				dept = document.getElementById("dept");
+				grade = document.getElementById("grade");
+			}
+
+			function showStatus()
+			{
+				if(xhr.readyState == 4 && xhr.status == 200)
+				{
+					var result = "Operation was not successful!";
+					if(xhr.responseText == 'true')
+					{
+						result = "Operation successful!"
+					}
+					alert(result);
+				}
+			}
+
+			function createOp()
+			{
+				xhr.onreadystatechange = showStatus;
+				xhr.open("POST", "http://localhost/studservice/create", true);
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				// PHP can't process form data that well, hence we stick to query string
+				/*
+				form = new FormData();
+				form.append("usn", usn.value);
+				form.append("sname", sname.value);
+				form.append("dept", dept.value);
+				form.append("grade", grade.value);
+
+				xhr.send(form);
+				*/
+				var query = "usn=" + usn.value + "&sname=" + sname.value + "&dept=" + dept.value + "&grade=" + grade.value;
+				xhr.send(query);
+			}
+
+			function displayDetails()
+			{
+				if(xhr.readyState == 4 && xhr.status == 200)
+				{
+					var response = JSON.parse(xhr.responseText);
+					if(response)
+					{
+						usn.value = response.usn;
+						sname.value = response.name;
+						dept.value = response.dept;
+						grade.value = response.grade;
+					}
+					else
+					{
+						alert("Given USN not found!");
+					}
+				}
+			}
+
+			function readOp()
+			{
+				xhr.onreadystatechange = displayDetails;
+				xhr.open("GET", "http://localhost/studservice/get/usn/" + usn.value, true);
+				xhr.send();
+			}
+
+			function updateOp()
+			{
+				xhr.onreadystatechange = showStatus;
+				xhr.open("PUT", "http://localhost/studservice/update/usn/" + usn.value, true);
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				/*
+				form = new FormData();
+				form.append("usn", usn.value);
+				form.append("sname", sname.value);
+				form.append("dept", dept.value);
+				form.append("grade", grade.value);
+
+				xhr.send(form);
+				*/
+				var query = "usn=" + usn.value + "&sname=" + sname.value + "&dept=" + dept.value + "&grade=" + grade.value;
+				xhr.send(query);
+			}
+
+			function deleteOp()
+			{
+				xhr.onreadystatechange = showStatus;
+				xhr.open("DELETE", "http://localhost/studservice/delete/usn/" + usn.value, true);
+				xhr.send();
+			}
+		</script>
+	</head>
+	<body onload="init()">
+		<table>
+			<tr>
+				<td>USN: </td><td><input type="text" id="usn" onblur="if(usn.value.length != 3) alert('USN must have 3 digits!'); " /></td>
+			</tr>
+			<tr>
+				<td>Name: </td><td><input type="text" id="sname" /></td>
+			</tr>
+			<tr>
+				<td>Dept: </td><td><input type="text" id="dept" /></td>
+			</tr>
+			<tr>
+				<td>Grade: </td><td><input type="text" id="grade" /></td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<td><button onclick="createOp()">CREATE</button></td>
+				<td><button onclick="readOp()">READ</button></td>
+				<td><button onclick="updateOp()">UPDATE</button></td>
+				<td><button onclick="deleteOp()">DELETE</button></td>
+			</tr>
+		</table>
+	</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CHAT COMET</title>
+	<link rel="stylesheet" href="http://localhost/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="chat.css" />
+	<script src="http://localhost/jquery-2.2.4.js"> </script>
+	<script type="text/javascript" src="chat.js"> </script>
+	<script type="text/javascript">
+	</script>
+	<style type="text/css">
+	</style>
+</head>
+<body onload="obj.setUser()">
+	<div class="container well">
+		<div id="username" class="col-xs-3" ></div>
+		<div id="outer" class="col-xs-6">
+			<br/>
+			<div id="innertop">
+			</div>
+			<br/>
+			<div id="innerbot">
+				<textarea id="message" onkeyup="obj.checkSend()"></textarea>
+			</div>
+			<br/>
+			<p><input type="checkbox" id="enterToSend" /> Enter to send message</p>
+			<button id="sendMsg" class="btn btn-primary" onclick="obj.sendToServer()">Send</button>
+		</div>
+		<div class="col-xs-3" ></div>
+	</div>
+</body>
+</html>

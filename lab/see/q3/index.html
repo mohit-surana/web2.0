@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Multi Stage Download</title>
+	<script>
+		function init()
+		{
+			isbnSearch = document.getElementById("isbnSearch");
+
+			isbn = document.getElementById("isbn");
+			title = document.getElementById("title");
+			author = document.getElementById("author");
+			publisher = document.getElementById("publisher");
+			price = document.getElementById("price");
+
+			bookDetails = document.getElementById("bookDetails");
+			bookDetails.style.display = "none";
+
+			setTimeout(loadSearch, 3000);
+			setTimeout(loadPenguins, 6000);
+
+			links = document.getElementById("links");
+			setTimeout(loadLinks, 9000);
+		}
+
+		function loadSearch() // Hacky way to do it - better to send some html from the server
+		{
+			document.getElementById("searchLoader").style.display = "none";
+			document.getElementById("searchContent").style.display = "block";
+		}
+
+		function loadPenguins()
+		{
+			var pingu = document.getElementById("penguins");
+			pingu.src = "images/penguins.bmp";
+			pingu.style.height = "5%";
+			pingu.style.width = "5%";
+		}
+
+		function loadLinks()
+		{
+			linksXhr = new XMLHttpRequest();
+			linksXhr.onreadystatechange = showLinks;
+			linksXhr.open("GET", "links.txt", true);
+			linksXhr.send();
+		}
+
+		function showLinks()
+		{
+			if(linksXhr.readyState == 4 && linksXhr.status == 200)
+			{
+				linksHeading = document.createElement("h2");
+				linksHeading.innerHTML = "Links to Department Libraries";
+				links.appendChild(linksHeading);
+
+				response = linksXhr.responseText;
+				var linkData = response.split("\n");
+				for(var i = 0; i<linkData.length; ++i)
+				{
+					link = document.createElement("a");
+					link.innerHTML = linkData[i].split(";")[0];
+					link.href = linkData[i].split(";")[1];
+					link.style.display = "block";
+					links.appendChild(link);
+				}
+			}
+			document.getElementById("linksLoader").style.display = "none";
+		}
+
+		obj =
+		{
+			"xhr"				: new XMLHttpRequest(),
+			"getDetails"		: function() {
+				bookDetails.style.display = "none";
+				this.xhr.onreadystatechange = this.updateDetails;
+				this.xhr.open("GET", "fetchData.php?isbn=" + isbnSearch.value, true);
+				this.xhr.send();
+			},
+			"updateDetails"		: function() {
+				if(this.readyState == 4 && this.status == 200)
+				{
+					response = JSON.parse(this.responseText);
+					if(response.error)
+					{
+						alert(response.error);
+					}
+					else
+					{
+						bookDetails.style.display = "inline";
+						isbn.innerHTML = response.isbn;
+						title.innerHTML = response.title;
+						author.innerHTML = response.author;
+						publisher.innerHTML = response.publisher;
+						price.innerHTML = response.price;
+					}
+					this.abort();
+				}
+			}
+		};
+	</script>
+	<style>
+		th, td
+		{
+			border: 1px solid black;
+			border-collapse: collapse;
+		}
+	</style>
+</head>
+<body onload="init()">
+	<h2>Welcome to LMS <img id="penguins" src="images/loader.gif" /></h2>
+	<p>Welcome to the PESIT Library Management System This page helps you to enhance your knowledge in all fields of engineering.</p>
+	<p>Books available are in the fields of Mechanical, Electronics, Computer and Information Science Engineering.</p>
+	<p>If you want to start quickly, there is a search field in which you can enter an ISBN number. You can then search for the book. The results will contain details about the author, the publisher, the price and the title of the book.</p>
+	<p>Meanwhile, you can also go to the individual department sites by clicking on the hyperlinks provided at the bottom of this page.</p>
+	<p>Thank you and have a wonderful time.</p>
+	<div>
+		<img id="searchLoader" src="images/loader.gif" />
+		<div id="searchContent" style="display: none">
+			<p>ISBN: <input type="text" id="isbnSearch" onBlur="obj.getDetails()" /></p>
+			<p><input type="button" onclick="obj.getDetails()" value="Search"/></p>
+		</div>
+	</div>
+	<div>
+		<table id="bookDetails">
+			<tr>
+				<th>ISBN</th>
+				<th>Title</th>
+				<th>Author</th>
+				<th>Publisher</th>
+				<th>Price</th>
+			</tr>
+			<tr>
+				<td id="isbn"></td>
+				<td id="title"></td>
+				<td id="author"></td>
+				<td id="publisher"></td>
+				<td id="price"></td>
+			</tr>
+		</table>
+	</div>
+	<div id="links">
+		<img id="linksLoader" src="images/loader.gif" />
+	</div>
+</body>
+</html>

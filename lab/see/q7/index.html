@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>RSS Search</title>
+	<script>
+		function init()
+		{
+			xhr = new XMLHttpRequest();
+			query = document.getElementById("query");
+			searchResults = document.getElementById("results");
+		}
+
+		function fetchResults()
+		{
+			// To handle words separated by spaces
+			var queries = query.value.split(" ").join("+");
+			xhr.open("GET", "search.php?query=" + queries, true);
+			xhr.onreadystatechange = processResults;
+			xhr.send();
+		}
+
+		function processResults()
+		{
+			if(xhr.readyState == 4 && xhr.status == 200)
+			{
+				root = xhr.responseXML.documentElement;
+				results = root.getElementsByTagName("item");
+				populateResults(results);
+			}
+		}
+
+		function populateResults(results)
+		{
+			searchResults.innerHTML = ""
+			for(var i = 0; i<results.length; ++i)
+			{
+				var newdiv = document.createElement("div");
+				newdiv.className = "result";
+				var anchor = createLink(results[i]);
+				newdiv.appendChild(anchor);
+				searchResults.appendChild(newdiv);
+			}
+		}
+
+		function createLink(result)
+		{
+			var anchor = document.createElement("a");
+			var link = result.getElementsByTagName("link")[0].firstChild.nodeValue;
+			var title = result.getElementsByTagName("title")[0].firstChild.nodeValue;
+			anchor.href = link;
+			anchor.innerHTML = title;
+			return anchor;
+		}
+	</script>
+	<style>
+		input, select
+		{
+			position: absolute;
+			left: 121px;
+		}
+		div#results
+		{
+			position: absolute;
+			left: 121px;
+			width: auto;
+		}
+		.result
+		{
+			background-color: #eeeeee;
+		}
+		.result:hover
+		{
+			background-color: #64aaff;
+		}
+
+	</style>
+</head>
+<body onload="init()">
+	<div>
+		<label>Search String: <input type="text" id="query"/></label>
+		<br/><br/><input type="button" value="Search" onclick="fetchResults()"/><br/><br/>
+	</div>
+	<div id="results">
+	</div>
+</body>
+</html>
